@@ -3,9 +3,11 @@
 namespace Scripts.World.Generation {
     [CreateAssetMenu(menuName = "VE/World/Generator/DebugGenerator")]
     public class DebugGenerator : WorldGenerator {
-        public byte CutoutValueA = 2;
-        public byte CutoutValueB = 2;
+        public byte CutoutValueA = 8;
+        public byte CutoutValueB = 8;
+        public byte CutoutValueC = 8;
         public byte Size = 4;
+
         public override ChunkData[,] Generate(World world) {
             byte width = world.Width, height = world.ChunkHeight;
             var data = new ChunkData[width, height];
@@ -23,7 +25,7 @@ namespace Scripts.World.Generation {
 
         private void FillChunk(ChunkData chunk) {
             foreach (var position in chunk) {
-                var pair = position.x % CutoutValueA <= Size && position.z % CutoutValueB <= Size;
+                var pair = position.x % CutoutValueA > Size && position.z % CutoutValueB > Size && position.y % CutoutValueC > Size;
                 chunk[position] = pair ? BlockMaterial.Solid : BlockMaterial.Empty;
             }
         }

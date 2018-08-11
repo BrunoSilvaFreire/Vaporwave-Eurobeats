@@ -7,26 +7,6 @@ namespace Scripts.World {
         public MeshCollider Collider;
         private ChunkData data;
 
-        private void OnDrawGizmos() {
-            if (data == null) {
-                return;
-            }
-
-            var blocks = data.blocks;
-            var size = blocks.GetLength(0);
-            var height = blocks.GetLength(1);
-            for (byte x = 0; x < size; x++) {
-                for (byte y = 0; y < height; y++) {
-                    for (byte z = 0; z < size; z++) {
-                        var color = blocks[x, y, z] == BlockMaterial.Empty ? Color.green : Color.red;
-                        color.a = .5F;
-                        Gizmos.color = color;
-                        Gizmos.DrawCube(new Vector3(x, y, z) + transform.position, Vector3.one);
-                    }
-                }
-            }
-        }
-
         public void LoadMesh(ChunkData data) {
             this.data = data;
             var blocks = data.blocks;
@@ -36,6 +16,10 @@ namespace Scripts.World {
             for (byte x = 0; x < size; x++) {
                 for (byte y = 0; y < height; y++) {
                     for (byte z = 0; z < size; z++) {
+                        if (blocks[x, y, z] == BlockMaterial.Empty) {
+                            continue;
+                        }
+
                         if (IsTransparent(blocks, x - 1, y, z))
                             builder.AddFace(new Vector3(x, y, z), Vector3.up, Vector3.forward, false);
                         // Right wall
