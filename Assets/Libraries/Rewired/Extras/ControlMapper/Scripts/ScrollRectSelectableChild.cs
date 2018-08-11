@@ -8,6 +8,10 @@ namespace Rewired.UI.ControlMapper {
     using UnityEngine;
     using UnityEngine.UI;
     using UnityEngine.EventSystems;
+    using UnityEngine.Events;
+    using System.Collections.Generic;
+    using System.Collections;
+    using Rewired;
 
     [AddComponentMenu("")]
     [RequireComponent(typeof(Selectable))]
@@ -17,12 +21,12 @@ namespace Rewired.UI.ControlMapper {
         public float customEdgePadding = 50.0f;
 
         private ScrollRect parentScrollRect;
-        private RectTransform parentScrollRectContentTransform => parentScrollRect.content;
+        private RectTransform parentScrollRectContentTransform { get { return parentScrollRect.content; } }
 
         private Selectable _selectable;
-        private Selectable selectable => _selectable ?? (_selectable = GetComponent<Selectable>());
+        private Selectable selectable { get { return _selectable ?? (_selectable = GetComponent<Selectable>()); } }
 
-        private RectTransform rectTransform => transform as RectTransform;
+        private RectTransform rectTransform { get { return transform as RectTransform; } }
 
         void Start() {
             parentScrollRect = transform.GetComponentInParent<ScrollRect>();

@@ -7,7 +7,9 @@ namespace Rewired.UI.ControlMapper {
 
     using UnityEngine;
     using UnityEditor;
+    using System.Collections;
     using System.Collections.Generic;
+    using System.Text.RegularExpressions;
     using Rewired;
     using Rewired.Data;
     using Rewired.Utils;
@@ -115,8 +117,8 @@ namespace Rewired.UI.ControlMapper {
 
         #region Properties
 
-        private InputManager inputManager => properties[c_rewiredInputManager].objectReferenceValue as InputManager;
-        private UserData userData => inputManager != null ? inputManager.userData : null;
+        private InputManager inputManager { get { return properties[c_rewiredInputManager].objectReferenceValue as InputManager; } }
+        private UserData userData { get { return inputManager != null ? inputManager.userData : null; } }
 
         #endregion
 

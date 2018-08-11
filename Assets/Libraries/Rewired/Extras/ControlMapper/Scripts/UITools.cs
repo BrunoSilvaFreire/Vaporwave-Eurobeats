@@ -7,6 +7,11 @@ namespace Rewired.UI.ControlMapper {
 
     using UnityEngine;
     using UnityEngine.UI;
+    using UnityEngine.Events;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Reflection;
+    using Rewired;
 
     public static class UITools {
 
@@ -93,6 +98,8 @@ namespace Rewired.UI.ControlMapper {
                     selectable.interactable = state;
                     colorBlock.fadeDuration = prevFadeDuration;
                     selectable.colors = colorBlock;
+                } else {
+                    selectable.interactable = state;
                 }
             } else {
                 selectable.interactable = state;

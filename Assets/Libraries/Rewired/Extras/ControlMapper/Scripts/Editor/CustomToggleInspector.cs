@@ -4,7 +4,11 @@
 #pragma warning disable 0649
 
 namespace Rewired.UI.ControlMapper {
+
+    using UnityEngine;
     using UnityEditor;
+    using System.Collections;
+    using Rewired;
 
     [CustomEditor(typeof(CustomToggle), true)]
     [CanEditMultipleObjects]

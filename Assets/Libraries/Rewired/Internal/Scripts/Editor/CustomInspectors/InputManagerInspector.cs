@@ -4,6 +4,8 @@
 #pragma warning disable 0649
 
 namespace Rewired.Editor {
+
+    using UnityEngine;
     using UnityEditor;
     using Rewired;
 

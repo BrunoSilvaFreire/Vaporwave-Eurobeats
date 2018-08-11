@@ -6,6 +6,7 @@
 namespace Rewired {
 
     using UnityEngine;
+    using System.Collections.Generic;
     using Rewired.Platforms;
     using Rewired.Utils;
     using Rewired.Utils.Interfaces;
@@ -181,15 +182,6 @@ namespace Rewired {
                 isCompiling = false; // flag off
                 RecompileEnd();
             }
-#endif
-        }
-
-        protected override string GetFocusedEditorWindowTitle() {
-#if UNITY_EDITOR
-            UnityEditor.EditorWindow window = UnityEditor.EditorWindow.focusedWindow;
-            return window != null ? window.title : string.Empty;
-#else
-            return string.Empty;
 #endif
         }
 

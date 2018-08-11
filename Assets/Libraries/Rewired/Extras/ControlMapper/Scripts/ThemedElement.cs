@@ -6,6 +6,9 @@
 namespace Rewired.UI.ControlMapper {
 
     using UnityEngine;
+    using UnityEngine.UI;
+    using System.Collections.Generic;
+    using Rewired;
 
     [AddComponentMenu("")]
     public class ThemedElement : MonoBehaviour {
@@ -24,8 +27,8 @@ namespace Rewired.UI.ControlMapper {
             [SerializeField]
             private Component _component;
 
-            public string themeClass => _themeClass;
-            public Component component => _component;
+            public string themeClass { get { return _themeClass; } }
+            public Component component { get { return _component; } }
         }
     }
 }

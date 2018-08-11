@@ -7,6 +7,8 @@ namespace Rewired.UI.ControlMapper {
 
     using UnityEngine;
     using UnityEngine.UI;
+    using System.Collections.Generic;
+    using Rewired;
 
     [AddComponentMenu("")]
     public class InputRow : MonoBehaviour {

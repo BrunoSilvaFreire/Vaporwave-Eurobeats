@@ -6,6 +6,8 @@
 namespace Rewired.UI.ControlMapper {
 
     using UnityEngine;
+    using UnityEngine.UI;
+    using System.Collections;
     using Rewired;
 
     [AddComponentMenu("")]

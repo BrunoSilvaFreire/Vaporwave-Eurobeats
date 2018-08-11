@@ -11,6 +11,7 @@ namespace Rewired.UI.ControlMapper {
     using UnityEngine.Events;
     using System.Collections.Generic;
     using System.Collections;
+    using Rewired;
 
     [AddComponentMenu("")]
     [RequireComponent(typeof(CanvasGroup))]
@@ -36,21 +37,19 @@ namespace Rewired.UI.ControlMapper {
 
         // Properties
 
-        public bool hasFocus => _isFocusedCallback != null ? _isFocusedCallback(_id) : false;
-        public int id => _id;
-
+        public bool hasFocus { get { return _isFocusedCallback != null ? _isFocusedCallback(_id) : false; } }
+        public int id { get { return _id; } }
         public RectTransform rectTransform {
             get {
                 if(_rectTransform == null) _rectTransform = gameObject.GetComponent<RectTransform>();
                 return _rectTransform;
             }
         }
-        public Text titleText => _titleText;
-        public List<Text> contentText => _contentText;
+        public Text titleText { get { return _titleText; } }
+        public List<Text> contentText { get { return _contentText; } }
         public GameObject defaultUIElement { get { return _defaultUIElement; } set { _defaultUIElement = value; } }
         public System.Action<int> updateCallback { get { return _updateCallback; } set { _updateCallback = value; } }
-        public Timer timer => _timer;
-
+        public Timer timer { get { return _timer; } }
         public int width {
             get {
                 return (int)rectTransform.sizeDelta.x;
@@ -71,7 +70,7 @@ namespace Rewired.UI.ControlMapper {
                 rectTransform.sizeDelta = size;
             }
         }
-        protected bool initialized => _initialized;
+        protected bool initialized { get { return _initialized; } }
 
         // Unity Events
 
@@ -292,8 +291,7 @@ namespace Rewired.UI.ControlMapper {
             private bool _started;
             private float end;
 
-            public bool started => _started;
-
+            public bool started { get { return _started; } }
             public bool finished {
                 get {
                     if(!started) return false;
