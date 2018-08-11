@@ -1,67 +1,41 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
+using System.Linq;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
-public enum BlockMaterial : byte {
-    Empty,
-    Solid
-}
+namespace Scripts.World {
+    public class World : MonoBehaviour {
+        //Quantos chunks
+        public byte Width;
 
-public abstract class WorldGenerator : ScriptableObject {
-    public abstract void Generate(World world);
-}
-
-public class Chunk {
-
-    public BlockMaterial[,,] blocks;
-
-    public Chunk(byte chunkSize, byte chunkHeight) {
-        blocks = new BlockMaterial[chunkSize, chunkHeight, chunkSize];
-    }
-}
-
-public class PerlinNoiseGenerator : WorldGenerator {
-    public override void Generate(World world) {
-
-        var size = world.Width * world.ChunkSize;
-        var noise = PerlinNoise.Generate(size, size, 8, 0);
-        for (byte i = 0; i < world.Width; i++) {
-            for (byte j = 0; j < world.Height; j++) {
-                var chunk = new Chunk(world.ChunkSize, world.ChunkHeight);
-                
-                FillChunk(world, chunk, noise, i, j);
-            }
-        }
-    }
-
-    private static void FillChunk(World world, Chunk chunk, float[,] noise, byte i, byte j) {
-        var endX = world.ChunkSize * i + world.ChunkSize;
-        var endZ = world.ChunkSize * j + world.ChunkSize;
-
-        var startX = endX - world.ChunkSize;
-        var startZ = endZ - world.ChunkSize;
-
-        for (var x = startX; x < endX; x++) {
-            for (var z = startZ; z < endX; z++) {
-                var height = (int)(world.ChunkHeight * noise[x, z]);
-                
-                for (var y = 0; y < world.ChunkHeight; y++) {
-                    if (y < height)
-                        chunk.blocks[x, y, z] = BlockMaterial.Solid;
-                    else 
-                        chunk.blocks[x, y, z] = BlockMaterial.Empty;                  
+        //Quantos chunks
+        public byte Height;
+        public byte ChunkSize;
+        public byte ChunkHeight;
+        public WorldGenerator Generator;
+        public Material ChunkMaterial;
+        [ShowInInspector]
+        public void Generate() {
+            var data = Generator.Generate(this);
+            for (var x = 0; x < Width; x++) {
+                for (var y = 0; y < Height; y++) {
+                    var chunkGO = new GameObject($"Chunk ({x},{y})");
+                    var chunk = chunkGO.AddComponent<Chunk>();
+                    chunkGO.transform.parent = transform;
+                    chunk.transform.position = new Vector3(x * ChunkSize, 0, y * ChunkSize);
+                    var chunkData = data[x, y];
+                    InitializeChunk(chunk, chunkGO, chunkData);
                 }
             }
         }
+
+        private void InitializeChunk(Chunk chunk, GameObject go, ChunkData chunkData) {
+            var col = go.AddComponent<MeshCollider>();
+            var filter = go.AddComponent<MeshFilter>();
+            go.AddComponent<MeshRenderer>().material = ChunkMaterial;
+            chunk.Collider = col;
+            chunk.Filter = filter;
+            chunk.LoadMesh(chunkData);
+        }
     }
-}
-
-public class World : MonoBehaviour {
-    //Quantos chunks
-    public byte Width;
-
-    //Quantos chunks
-    public byte Height;
-    public byte ChunkSize;
-    public byte ChunkHeight;
 }
