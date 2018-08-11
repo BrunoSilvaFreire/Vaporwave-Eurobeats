@@ -7,7 +7,10 @@ namespace Rewired.UI.ControlMapper {
 
     using UnityEngine;
     using UnityEngine.UI;
+    using UnityEngine.EventSystems;
+    using UnityEngine.Events;
     using System.Collections.Generic;
+    using System.Collections;
     using Rewired;
 
     [AddComponentMenu("")]
@@ -265,8 +268,8 @@ namespace Rewired.UI.ControlMapper {
             private UIControlSet _controlSet;
             private Dictionary<int, PropertyType> idToProperty;
 
-            public InputBehavior inputBehavior => _inputBehavior;
-            public UIControlSet controlSet => _controlSet;
+            public InputBehavior inputBehavior { get { return _inputBehavior; } }
+            public UIControlSet controlSet { get { return _controlSet; } }
 
             private InputBehavior copyOfOriginal;
 

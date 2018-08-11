@@ -7,7 +7,11 @@ namespace Rewired.UI.ControlMapper {
 
     using UnityEngine;
     using UnityEngine.UI;
+    using UnityEngine.EventSystems;
+    using UnityEngine.Events;
     using System.Collections.Generic;
+    using System.Collections;
+    using Rewired;
 
     [AddComponentMenu("")]
     public class UIControlSet : MonoBehaviour {
@@ -16,7 +20,7 @@ namespace Rewired.UI.ControlMapper {
         private Text title;
 
         private Dictionary<int, UIControl> _controls;
-        private Dictionary<int, UIControl> controls => _controls ?? (_controls = new Dictionary<int, UIControl>());
+        private Dictionary<int, UIControl> controls { get { return _controls ?? (_controls = new Dictionary<int, UIControl>()); } }
 
         public void SetTitle(string text) {
             if(title == null) return;

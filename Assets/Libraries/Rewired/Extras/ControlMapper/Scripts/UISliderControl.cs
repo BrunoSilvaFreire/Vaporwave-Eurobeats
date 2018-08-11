@@ -8,7 +8,10 @@ namespace Rewired.UI.ControlMapper {
     using UnityEngine;
     using UnityEngine.UI;
     using UnityEngine.EventSystems;
+    using UnityEngine.Events;
     using System.Collections.Generic;
+    using System.Collections;
+    using Rewired;
 
     [AddComponentMenu("")]
     public class UISliderControl : UIControl {

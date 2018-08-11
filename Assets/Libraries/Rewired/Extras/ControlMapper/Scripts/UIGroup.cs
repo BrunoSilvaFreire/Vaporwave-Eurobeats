@@ -7,6 +7,9 @@ namespace Rewired.UI.ControlMapper {
 
     using UnityEngine;
     using UnityEngine.UI;
+    using System.Collections.Generic;
+    using System.Collections;
+    using Rewired;
 
     [AddComponentMenu("")]
     public class UIGroup : MonoBehaviour {
@@ -26,7 +29,7 @@ namespace Rewired.UI.ControlMapper {
             }
         }
 
-        public Transform content => _content;
+        public Transform content { get { return _content; } }
 
         public void SetLabelActive(bool state) {
             if(_label == null) return;

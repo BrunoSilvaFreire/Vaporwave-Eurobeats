@@ -7,6 +7,11 @@ namespace Rewired.UI.ControlMapper {
 
     using UnityEngine;
     using UnityEngine.UI;
+    using UnityEngine.EventSystems;
+    using UnityEngine.Events;
+    using System.Collections.Generic;
+    using System.Collections;
+    using Rewired;
 
     [AddComponentMenu("")]
     public class UIControl : MonoBehaviour {
@@ -16,7 +21,7 @@ namespace Rewired.UI.ControlMapper {
         private int _id;
         private bool _showTitle;
 
-        public int id => _id;
+        public int id { get { return _id; } }
 
 
         void Awake() {

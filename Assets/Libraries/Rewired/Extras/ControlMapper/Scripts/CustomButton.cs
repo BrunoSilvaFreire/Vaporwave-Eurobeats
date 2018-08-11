@@ -9,7 +9,9 @@ namespace Rewired.UI.ControlMapper {
     using UnityEngine.UI;
     using UnityEngine.EventSystems;
     using UnityEngine.Events;
+    using System.Collections.Generic;
     using System.Collections;
+    using Rewired;
 
     /// <summary>
     /// Overrides auto-navigation in Selectable because it's inadequate for selectables inside a scroll rect
@@ -43,7 +45,7 @@ namespace Rewired.UI.ControlMapper {
         public bool autoNavLeft { get { return _autoNavLeft; } set { _autoNavLeft = value; } }
         public bool autoNavRight { get { return _autoNavRight; } set { _autoNavRight = value; } }
 
-        private bool isDisabled => !IsInteractable();
+        private bool isDisabled { get { return !IsInteractable(); } }
         private bool isHighlightDisabled;
 
         // Events

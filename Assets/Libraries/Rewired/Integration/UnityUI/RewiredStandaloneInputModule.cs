@@ -146,6 +146,7 @@ namespace Rewired.Integration.UnityUI {
 
         private Vector2 m_LastMousePosition;
         private Vector2 m_MousePosition;
+        private bool m_HasFocus = true;
 
         [SerializeField]
         private string m_HorizontalAxis = DEFAULT_ACTION_MOVE_HORIZONTAL;
@@ -301,7 +302,9 @@ namespace Rewired.Integration.UnityUI {
             CheckEditorRecompile();
             if(recompiling) return;
             if(!ReInput.isReady) return;
-            
+
+            if(!m_HasFocus && ShouldIgnoreEventsOnNoFocus()) return;
+
             if(isMouseSupported) {
                 m_LastMousePosition = m_MousePosition;
                 m_MousePosition = UnityEngine.Input.mousePosition;
@@ -356,6 +359,8 @@ namespace Rewired.Integration.UnityUI {
         }
 
         public override void ActivateModule() {
+            if(!m_HasFocus && ShouldIgnoreEventsOnNoFocus()) return;
+
             base.ActivateModule();
 
             if(isMouseSupported) {
@@ -378,7 +383,8 @@ namespace Rewired.Integration.UnityUI {
 
         public override void Process() {
             if(!ReInput.isReady) return;
-            
+            if(!m_HasFocus && ShouldIgnoreEventsOnNoFocus()) return;
+
             bool usedEvent = SendUpdateEventToSelectedObject();
 
             if(eventSystem.sendNavigationEvents) {
@@ -800,6 +806,22 @@ namespace Rewired.Integration.UnityUI {
                     HandlePointerExitAndEnter(pointerEvent, currentOverGo);
                 }
             }
+        }
+
+        protected virtual void OnApplicationFocus(bool hasFocus) {
+            m_HasFocus = hasFocus;
+        }
+
+        private bool ShouldIgnoreEventsOnNoFocus() {
+#if UNITY_EDITOR || UNITY_STANDALONE_WIN || UNITY_STANDALONE_OSX || UNITY_STANDALONE_LINUX || UNITY_WSA || UNITY_WINRT
+#if UNITY_EDITOR
+            if(UnityEditor.EditorApplication.isRemoteConnected) return false;
+#endif
+            if(!ReInput.isReady) return true;
+#else
+            if(!ReInput.isReady) return false;
+#endif
+            return ReInput.configuration.ignoreInputWhenAppNotInFocus;
         }
 
         #region Rewired Methods
