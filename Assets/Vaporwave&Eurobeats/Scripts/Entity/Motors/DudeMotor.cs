@@ -5,120 +5,114 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Vaporwave&Eurobeats/Motors/DudeMotor")]
 public class DudeMotor : Motor {
 
-	[SerializeField] private float _moveSpeed;
-	[SerializeField] private float _jumpForce;
-	[SerializeField] private float _airDrag;
-	[SerializeField] private float _groundDrag;
-	[SerializeField] private float _shootForce;
-	[SerializeField] private float _spreadAmount;
-	[SerializeField] private float _recoilForce;
-	[SerializeField] private float _attackSpeed;
-	[SerializeField] private float _succRate;
-	[SerializeField] private int _maximumStorage;
-	[SerializeField] private int _minimumStorage;
-	[SerializeField] private float _fallMultiplier = 2.5f;
-
-	private float _gravityScale = 1.0f;
-	private float _attackCooldown = 0f;
-	private MoveState _state;
-	private Transform _cursor;
-	private Transform _tr;
-	private Rigidbody _rb;
 	private ObjectPooler _pool;
+	private ScreenEffects _fx;
 
-	public override void Setup(MovableEntity entity) {
-		_tr = entity.transform;
+	public override void Setup(MovableEntity entity, MoveState state) {
 		
-		_rb = entity.gameObject.AddComponent<Rigidbody>();
-		_rb.freezeRotation = true;
-		_rb.useGravity = false;
-		_rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+		var dude = state as DudeMoveState;
 		
-		_state = entity.gameObject.AddComponent<MoveState>();
+		dude.Tr = entity.transform;
+		
+		dude.Rb = entity.gameObject.AddComponent<Rigidbody>();
+		dude.Rb.freezeRotation = true;
+		dude.Rb.useGravity = false;
+		dude.Rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
 
 		_pool = ObjectPooler.Instance;
+		_fx = ScreenEffects.Instance;
 	}
 
-	public override void Init(MovableEntity entity) {
-		_cursor = entity.transform.Find("Cursor");
-	}
-
-	public override void Tick(MovableEntity entity) {
+	public override void Init(MovableEntity entity, MoveState state) {
+		var dude = state as DudeMoveState;
 		
-		if (_state.Grounded) {
-			_rb.drag = _groundDrag;
+		dude.Cursor = entity.transform.Find("Cursor");
+	}
+
+	public override void Tick(MovableEntity entity, MoveState state) {
+
+		var dude = state as DudeMoveState;
+		
+		if (dude.Grounded) {
+			dude.Rb.drag = dude.GroundDrag;
 			if (entity.Input.GetButtonDown("Jump")) {
-				Jump();
+				Jump(dude);
 			}
 		}
 		else {
-			_rb.drag = _airDrag;
+			dude.Rb.drag = dude.AirDrag;
 		}
 
 
-		_attackCooldown += Time.deltaTime;
+		dude.AttackCooldown += Time.deltaTime;
+		dude.SuccCooldown += Time.deltaTime;
 		if (entity.Input.GetButton("Succ")) {
-			Succ();
+			Succ(dude);
 		}
 		else if (entity.Input.GetButton("Shoot")) {
-			Shoot();
+			Shoot(dude);
 		}
 		
 		var hori = entity.Input.GetAxis("Horizontal");
 		var vert = entity.Input.GetAxis("Vertical");
-		Move(hori, vert);
+		Move(dude, hori, vert);
 	}
 
-	public override void FixedTick(MovableEntity entity) {
-		if (_rb.velocity.y < -5.5f || _rb.velocity.y > 0 && !entity.Input.GetButton("Jump")) {
-			_gravityScale = _fallMultiplier;
+	public override void FixedTick(MovableEntity entity, MoveState state) {
+		
+		var dude = state as DudeMoveState;	
+		
+		if (dude.Rb.velocity.y < -5.5f || dude.Rb.velocity.y > 0 && !entity.Input.GetButton("Jump")) {
+			dude.GravityScale = dude.FallMultiplier;
 		}
 		else {
-			_gravityScale = 1;
+			dude.GravityScale = 1;
 		}
 		
-		ApplyGravity();
+		ApplyGravity(dude);
 	}
 
-	private void ApplyGravity() {
-		var gravity = Physics.gravity * (_gravityScale + 5);
-		_rb.AddForce(gravity, ForceMode.Acceleration);
+	private void ApplyGravity(DudeMoveState dude) {
+		var gravity = Physics.gravity * (dude.GravityScale + 5);
+		dude.Rb.AddForce(gravity, ForceMode.Acceleration);
 	}
 
-	private void Succ() {
-		if (_cursor.localScale.x > _maximumStorage)
+	private void Succ(DudeMoveState dude) {
+		if (dude.CubeStorage > dude.MaximumStorage || dude.SuccCooldown * dude.SuccSpeed < 1)
 			return;
 
-		;
-		_cursor.localScale += Vector3.one * _succRate * Time.deltaTime;
+
+		dude.CubeStorage++;
 	}
 
-	private void Shoot() {
-		if (_cursor.localScale.x < _minimumStorage || _attackCooldown * _attackSpeed < 1)
+	private void Shoot(DudeMoveState dude) {
+		if (dude.CubeStorage < dude.MinimumStorage || dude.AttackCooldown * dude.AttackSpeed < 1)
 			return;
 
-		_attackCooldown = 0f;
-		_cursor.localScale -= Vector3.one * _succRate * 0.5f * Time.deltaTime;
-		var dir = ((_cursor.position - _tr.position).normalized + Random.insideUnitSphere * _spreadAmount).normalized;
-
-		var projectile = _pool.SpawnFromPool("Projectile", _tr.position + dir, Quaternion.identity);
-		projectile.GetComponent<ProjectileBehaviour>().Shoot(dir, _shootForce);
+		
+		_fx.ScreenShake(0.1f, 0.25f);
+		
+		dude.AttackCooldown = 0f;
+		dude.CubeStorage--;
+		var dir = ((dude.Cursor.position - dude.Tr.position).normalized + Random.insideUnitSphere * dude.SpreadAmount).normalized;
+		var projectile = _pool.SpawnFromPool("Projectile", dude.Tr.position + dir, Quaternion.identity);
+		projectile.GetComponent<ProjectileBehaviour>().Shoot(dir, dude.ShootForce);
 		
 
-		_rb.AddForce(-dir * _recoilForce, ForceMode.Impulse);
+		dude.Rb.AddForce(-dir * dude.RecoilForce, ForceMode.Impulse);
 	}
 	
-	private void Jump() {
+	private void Jump(DudeMoveState dude) {
 
-		var momentum = _rb.velocity * 4;
+		var momentum = dude.Rb.velocity * 4;
 		
-		_rb.AddForce(momentum.x, _jumpForce, momentum.z, ForceMode.Impulse);
+		dude.Rb.AddForce(momentum.x, dude.JumpForce, momentum.z, ForceMode.Impulse);
 	}
 
-	private void Move(float hori, float vert) {
+	private void Move(DudeMoveState dude, float hori, float vert) {
 		
-		_rb.AddForce(new Vector3(hori, 0, vert).normalized
-		             * (_state.Grounded ? _moveSpeed : _moveSpeed * 0.33f)
+		dude.Rb.AddForce(new Vector3(hori, 0, vert).normalized
+		             * (dude.Grounded ? dude.MoveSpeed : dude.MoveSpeed * 0.33f)
 		             * Time.deltaTime,
 			ForceMode.VelocityChange);
 	}

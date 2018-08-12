@@ -7,15 +7,15 @@ public class CursorMotor : Motor {
 
 	[SerializeField] private float _range;
 	
-	public override void Setup(MovableEntity entity) {
+	public override void Setup(MovableEntity entity, MoveState state) {
 		
 	}
 
-	public override void Init(MovableEntity entity) {
+	public override void Init(MovableEntity entity, MoveState state) {
 
 	}
 
-	public override void Tick(MovableEntity entity) {
+	public override void Tick(MovableEntity entity, MoveState state) {
 		var hori = entity.Input.GetAxis("CursorHorizontal");
 		var vert = entity.Input.GetAxis("CursorVertical");
 
@@ -24,7 +24,7 @@ public class CursorMotor : Motor {
 
 	}
 
-	public override void FixedTick(MovableEntity entity) {
+	public override void FixedTick(MovableEntity entity, MoveState state) {
 	
 	}
 }
