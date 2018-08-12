@@ -8,7 +8,7 @@ namespace Scripts.World.Generation {
         public byte CutoutValueC = 8;
         public byte Size = 4;
 
-        public override ChunkData[,] Generate(World world) {
+        public override ChunkData[,] Generate(World world, int seed) {
             byte width = world.Width, height = world.ChunkHeight;
             var data = new ChunkData[width, height];
             byte chunkSize = world.ChunkSize, chunkHeight = world.ChunkHeight;

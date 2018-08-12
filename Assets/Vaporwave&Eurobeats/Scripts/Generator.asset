@@ -11,3 +11,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c304f3d29624ffc9fe05d13ca59c15e, type: 3}
   m_Name: Generator
   m_EditorClassIdentifier: 
+  amplitude: 1
+  octaveCount: 6

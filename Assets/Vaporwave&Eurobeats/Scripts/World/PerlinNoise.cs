@@ -5,7 +5,7 @@ using UnityEngine;
 public class PerlinNoise {
     
   
-    public static float[,] Generate(int w, int h, int octaveCount, int seed){
+    public static float[,] Generate(int w, int h, int octaveCount, float amplitude, int seed){
 
         float[,] baseNoise = GenerateWhiteNoise(w, h, seed);
         int width = baseNoise.GetLength(0);
@@ -27,7 +27,6 @@ public class PerlinNoise {
         }
         
         float[,] perlinNoise = new float[width,height];
-        float amplitude = 1.0f;
         float totalAmplitude = 0.0f;
 
         //For feito para somar cada uma das matrizes em uma unica
@@ -49,6 +48,7 @@ public class PerlinNoise {
         for (int x = 0; x < width; x++){
             for (int y = 0; y < height; y++){
                 perlinNoise[x, y] /= totalAmplitude;
+               
             }
         }
 
@@ -64,7 +64,7 @@ public class PerlinNoise {
         float[,] noise = new float[w,h];
         for (int y = 0; y < h; y++){
             for (int x = 0; x < w; x++) {
-                noise[x, y] = rand.Next();
+                noise[x, y] = (float) rand.NextDouble();
             }
         }
         return noise;

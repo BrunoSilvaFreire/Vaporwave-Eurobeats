@@ -10,10 +10,16 @@ public class DudeMotor : Motor {
 	[SerializeField] private float _airDrag;
 	[SerializeField] private float _groundDrag;
 	[SerializeField] private float _shootForce;
+	[SerializeField] private float _spreadAmount;
 	[SerializeField] private float _recoilForce;
+	[SerializeField] private float _attackSpeed;
+	[SerializeField] private float _succRate;
+	[SerializeField] private int _maximumStorage;
+	[SerializeField] private int _minimumStorage;
 	[SerializeField] private float _fallMultiplier = 2.5f;
 
 	private float _gravityScale = 1.0f;
+	private float _attackCooldown = 0f;
 	private MoveState _state;
 	private Transform _cursor;
 	private Transform _tr;
@@ -49,6 +55,8 @@ public class DudeMotor : Motor {
 			_rb.drag = _airDrag;
 		}
 
+
+		_attackCooldown += Time.deltaTime;
 		if (entity.Input.GetButton("Succ")) {
 			Succ();
 		}
@@ -78,20 +86,25 @@ public class DudeMotor : Motor {
 	}
 
 	private void Succ() {
-		if (_cursor.localScale.x > 5)
+		if (_cursor.localScale.x > _maximumStorage)
 			return;
-		
-		_cursor.localScale *= 1.02f;
+
+		;
+		_cursor.localScale += Vector3.one * _succRate * Time.deltaTime;
 	}
 
 	private void Shoot() {
-		if (_cursor.localScale.x < 1)
+		if (_cursor.localScale.x < _minimumStorage || _attackCooldown * _attackSpeed < 1)
 			return;
-		
-		_cursor.localScale *= 0.99f;
-		var dir = ((_cursor.position - _tr.position).normalized + Random.insideUnitSphere * 0.25f).normalized;
+
+		_attackCooldown = 0f;
+		_cursor.localScale -= Vector3.one * _succRate * 0.5f * Time.deltaTime;
+		var dir = ((_cursor.position - _tr.position).normalized + Random.insideUnitSphere * _spreadAmount).normalized;
+
 		var projectile = _pool.SpawnFromPool("Projectile", _tr.position + dir, Quaternion.identity);
 		projectile.GetComponent<ProjectileBehaviour>().Shoot(dir, _shootForce);
+		
+
 		_rb.AddForce(-dir * _recoilForce, ForceMode.Impulse);
 	}
 	

@@ -11,10 +11,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b589f05bc17d573409994f01f3515870, type: 3}
   m_Name: DudeMotor
   m_EditorClassIdentifier: 
-  _moveSpeed: 350
+  _moveSpeed: 150
   _jumpForce: 75
   _airDrag: 7
   _groundDrag: 14
   _shootForce: 60
-  _recoilForce: 5
+  _spreadAmount: 0.1
+  _recoilForce: 15
+  _attackSpeed: 10
+  _succRate: 1.05
+  _maximumStorage: 30
+  _minimumStorage: 1
   _fallMultiplier: 20

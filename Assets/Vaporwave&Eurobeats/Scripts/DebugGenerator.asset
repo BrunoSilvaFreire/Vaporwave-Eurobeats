@@ -13,4 +13,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CutoutValueA: 8
   CutoutValueB: 8
-  Size: 2
+  CutoutValueC: 1
+  Size: 0

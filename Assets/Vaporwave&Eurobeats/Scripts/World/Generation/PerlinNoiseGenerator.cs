@@ -3,9 +3,14 @@
 namespace Scripts.World.Generation {
     [CreateAssetMenu(menuName = "VE/World/Generator/PerlinGenerator")]
     public class PerlinNoiseGenerator : WorldGenerator {
-        public override ChunkData[,] Generate(World world) {
+
+        [SerializeField] private float amplitude = 1f;
+        [SerializeField] private int octaveCount = 8;
+        
+        
+        public override ChunkData[,] Generate(World world, int seed) {
             var size = world.Width * world.ChunkSize;
-            var noise = PerlinNoise.Generate(size, size, 8, 0);
+            var noise = PerlinNoise.Generate(size, size, octaveCount, amplitude, seed);
             var data = new ChunkData[world.Width, world.Height];
             for (byte i = 0; i < world.Width; i++) {
                 for (byte j = 0; j < world.Height; j++) {
@@ -18,23 +23,20 @@ namespace Scripts.World.Generation {
             return data;
         }
 
-        private static void FillChunk(World world, ChunkData chunkData, float[,] noise, byte i, byte j) {
-            var endX = world.ChunkSize * i + world.ChunkSize - 1;
-            var endZ = world.ChunkSize * j + world.ChunkSize - 1;
+        private static void FillChunk(World world, ChunkData chunkData, float[,] noise, byte chunkX, byte chunkZ) {
+           
+            var startX = world.ChunkSize * chunkX;
+            var startZ = world.ChunkSize * chunkZ;
 
-            var startX = endX - world.ChunkSize;
-            var startZ = endZ - world.ChunkSize;
-
-            for (var x = startX; x < endX; x++) {
-                for (var z = startZ; z < endX; z++) {
-                    var height = (int) (world.ChunkHeight * noise[x, z]);
-
+            var width = world.ChunkSize;
+            
+            for (var x = 0; x < width; x++) {
+                for (var z = 0; z < width; z++) {
+                    var height = (int) (world.ChunkHeight * noise[startX + x, startZ + z]);
+                  
                     for (var y = 0; y < world.ChunkHeight; y++) {
-                        if (y < height) {
-                            chunkData.blocks[x, y, z] = BlockMaterial.Solid;
-                        } else {
-                            chunkData.blocks[x, y, z] = BlockMaterial.Empty;
-                        }
+
+                        chunkData.blocks[x, y, z] = y < height ? BlockMaterial.Solid : BlockMaterial.Empty;
                     }
                 }
             }
