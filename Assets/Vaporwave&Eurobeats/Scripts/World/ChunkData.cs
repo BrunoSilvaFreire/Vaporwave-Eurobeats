@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Scripts.World {
     public class ChunkData : IEnumerable<Vector3Int> {
+        [ShowInInspector, TableMatrix(IsReadOnly = true)]
         public BlockMaterial[,,] blocks;
 
         public ChunkData(byte chunkSize, byte chunkHeight) {
@@ -33,6 +35,15 @@ namespace Scripts.World {
             }
             set {
                 blocks[position.x, position.y, position.z] = value;
+            }
+        }
+
+        public BlockMaterial this[int x, int y, int z] {
+            get {
+                return blocks[x, y, z];
+            }
+            set {
+                blocks[x, y, z] = value;
             }
         }
     }

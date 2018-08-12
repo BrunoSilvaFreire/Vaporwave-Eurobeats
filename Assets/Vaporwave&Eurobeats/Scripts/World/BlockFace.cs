@@ -11,7 +11,7 @@ namespace Scripts.World {
         Backward
     }
 
-    public static class BlockFaceExtensions {
+    public static class BlockFaces {
         public static BlockFace[] All = {
             BlockFace.Up,
             BlockFace.Down,
@@ -37,6 +37,17 @@ namespace Scripts.World {
                     return new Vector3Int(0, 0, -1);
                 default:
                     throw new ArgumentOutOfRangeException(nameof(face), face, null);
+            }
+        }
+
+        public static bool IsReversed(this BlockFace face) {
+            switch (face) {
+                case BlockFace.Up:
+                case BlockFace.Right:
+                case BlockFace.Backward:
+                    return true;
+                default:
+                    return false;
             }
         }
 

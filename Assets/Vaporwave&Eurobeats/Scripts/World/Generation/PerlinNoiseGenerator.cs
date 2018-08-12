@@ -9,11 +9,11 @@ namespace Scripts.World.Generation {
         
         
         public override ChunkData[,] Generate(World world, int seed) {
-            var size = world.Width * world.ChunkSize;
+            var size = world.WorldWidth * world.ChunkSize;
             var noise = PerlinNoise.Generate(size, size, octaveCount, amplitude, seed);
-            var data = new ChunkData[world.Width, world.Height];
-            for (byte i = 0; i < world.Width; i++) {
-                for (byte j = 0; j < world.Height; j++) {
+            var data = new ChunkData[world.WorldWidth, world.WorldDepth];
+            for (byte i = 0; i < world.WorldWidth; i++) {
+                for (byte j = 0; j < world.WorldDepth; j++) {
                     var chunk = new ChunkData(world.ChunkSize, world.ChunkHeight);
                     FillChunk(world, chunk, noise, i, j);
                     data[i, j] = chunk;

@@ -1,24 +1,33 @@
-﻿using Scripts.World.Utilities;
-using Sirenix.OdinInspector;
+﻿using System;
+using Scripts.World.Utilities;
+using Unity.Collections;
+using Unity.Jobs;
 using UnityEngine;
 
-namespace Scripts.World {
-    public class Chunk : MonoBehaviour {
-        public MeshFilter Filter;
-        public MeshCollider Collider;
+namespace Scripts.World.Jobs {
+    public struct BuildMeshJob : IJob, IDisposable {
+        private readonly ChunkData data;
+        private readonly Vector3Int chunkOffset;
+        public NativeArray<int>? Indices;
+        public NativeArray<Vector3>? Vertices;
+        public NativeArray<Vector2>? Uvs;
 
-        [ShowInInspector, ReadOnly]
-        private ChunkData data;
-
-        public Vector2Int CachedPos {
-            get;
-            private set;
+        public BuildMeshJob(ChunkData data, Vector3Int chunkOffset) {
+            this.data = data;
+            this.chunkOffset = chunkOffset;
+            Indices = null;
+            Vertices = null;
+            Uvs = null;
         }
 
+        public void Dispose() {
+            Indices?.Dispose();
+            Vertices?.Dispose();
+            Uvs?.Dispose();
+        }
 
-        public void LoadMesh(World world) {
-            Debug.Log($"Building visual mesh @ {name}");
-
+        public void Execute() {
+            var world = World.Instance;
             var blocks = data.blocks;
             var size = blocks.GetLength(0);
             var height = blocks.GetLength(1);
@@ -75,64 +84,14 @@ namespace Scripts.World {
                     }
                 }
             }
-
-            var mesh = builder.Build();
-            Filter.sharedMesh = mesh;
-            Collider.sharedMesh = mesh;
+            Dispose();
+            Indices = new NativeArray<int>(builder.Indices.ToArray(), Allocator.Temp);
+            Vertices = new NativeArray<Vector3>(builder.Vertices.ToArray(), Allocator.Temp);
+            Uvs = new NativeArray<Vector2>(builder.Uvs.ToArray(), Allocator.Temp);
         }
 
         private bool IsTransparent(World world, int p1, int p2, int p3) {
-            return world.GetBlockRelativeTo(this, p1, p2, p3) == BlockMaterial.Empty;
+            return world.GetBlock(chunkOffset.x + p1, chunkOffset.y + p2, chunkOffset.z + p3) == BlockMaterial.Empty;
         }
-
-
-        private static BlockMaterial? GetNeightboor(BlockMaterial[,,] blocks, Vector3Int offset, BlockFace face) {
-            var position = offset + face.ToVector3();
-            if (IsOutOfBounds(position, blocks)) {
-                return null;
-            }
-
-            return blocks[position.x, position.y, position.z];
-        }
-
-        private static bool IsOutOfBounds(Vector3Int position, BlockMaterial[,,] blocks) {
-            if (position.x < 0 || position.y < 0 || position.z < 0) {
-                return true;
-            }
-
-            var size = blocks.GetLength(0);
-            var height = blocks.GetLength(1);
-            return position.x >= size || position.y >= height || position.z >= size;
-        }
-
-        public BlockMaterial this[int x, int y, int z] {
-            get {
-                return data[x, y, z];
-            }
-            set {
-                data[x, y, z] = value;
-            }
-        }
-
-        public void LoadData(World world, ChunkData chunkData, int x, int y) {
-            var go = gameObject;
-            var col = go.AddComponent<MeshCollider>();
-            var filter = go.AddComponent<MeshFilter>();
-            go.AddComponent<MeshRenderer>().material = world.ChunkMaterial;
-            Collider = col;
-            Filter = filter;
-            data = chunkData;
-            CachedPos = new Vector2Int(x,y);
-        }
-
-        public BlockMaterial this[Vector3Int localPos] {
-            get {
-                return data[localPos];
-            }
-            set {
-                data[localPos] = value;
-            }
-        }
-
     }
 }
