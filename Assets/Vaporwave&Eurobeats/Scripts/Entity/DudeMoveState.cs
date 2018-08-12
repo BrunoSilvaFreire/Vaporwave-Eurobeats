@@ -14,6 +14,7 @@ public class DudeMoveState : MoveState {
 	public float RecoilForce;
 	public float AttackSpeed;
 	public float SuccSpeed;
+	public float SuccArea;
 	public int MaximumStorage;
 	public int MinimumStorage;
 	public float FallMultiplier = 2.5f;

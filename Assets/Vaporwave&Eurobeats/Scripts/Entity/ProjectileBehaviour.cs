@@ -7,10 +7,12 @@ using UnityEngine;
 
 public class ProjectileBehaviour : MonoBehaviour {
     private Rigidbody _rb;
+    private ObjectPooler _pool;
     public float DestructionArea = 5;
 
     private void Awake() {
         _rb = GetComponent<Rigidbody>();
+        _pool = ObjectPooler.Instance;
     }
 
 
@@ -21,8 +23,11 @@ public class ProjectileBehaviour : MonoBehaviour {
     }
 
     private void OnCollisionEnter(Collision other) {
+
+        _pool.SpawnFromPool("LaserExplosion", transform.position, Quaternion.identity);
+        
         var selection = Selections.SphereSelection(World.Instance, transform.position.ToVector3Int(), DestructionArea);
         selection.DeleteAll();
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 }
