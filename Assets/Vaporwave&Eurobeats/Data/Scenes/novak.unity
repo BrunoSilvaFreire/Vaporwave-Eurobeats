@@ -4212,14 +4212,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4106765343561990, guid: af825098d9392e546b25251070de0f3e, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 1.95
-      objectReference: {fileID: 0}
-    - target: {fileID: 1733335737418080, guid: af825098d9392e546b25251070de0f3e, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: af825098d9392e546b25251070de0f3e, type: 2}
   m_IsPrefabParent: 0
@@ -4517,8 +4509,7 @@ Prefab:
       propertyPath: m_Name
       value: Dude (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 114235403267732020, guid: af825098d9392e546b25251070de0f3e,
-        type: 2}
+    - target: {fileID: 0}
       propertyPath: PlayerNumber
       value: 1
       objectReference: {fileID: 0}
@@ -4529,7 +4520,12 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1733335737418080, guid: af825098d9392e546b25251070de0f3e, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114204454165617176, guid: af825098d9392e546b25251070de0f3e,
+        type: 2}
+      propertyPath: PlayerNumber
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: af825098d9392e546b25251070de0f3e, type: 2}
