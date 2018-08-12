@@ -19,7 +19,7 @@ MonoBehaviour:
   _spreadAmount: 0.1
   _recoilForce: 15
   _attackSpeed: 10
-  _succRate: 1.05
+  _succSpeed: 5
   _maximumStorage: 30
   _minimumStorage: 1
   _fallMultiplier: 20

@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityUtilities.Singletons;
 
-public class TempCameraController : MonoBehaviour {
+public class CameraController : Singleton<CameraController> {
 
 
     public float MinZoom, MaxZoom;

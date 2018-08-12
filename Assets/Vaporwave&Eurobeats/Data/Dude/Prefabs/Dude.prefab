@@ -54,8 +54,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4951217584089720}
-  - component: {fileID: 114235403267732020}
   - component: {fileID: 136694183045771460}
+  - component: {fileID: 114204454165617176}
+  - component: {fileID: 114779511176583146}
   m_Layer: 10
   m_Name: Dude
   m_TagString: Player
@@ -70,7 +71,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1426739641050268}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 1.95}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4951217584089720}
@@ -96,7 +97,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1733335737418080}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.21108913, y: 1.47, z: 0.13778877}
+  m_LocalPosition: {x: 60.14, y: 28.3, z: 36.09}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4121401826746790}
@@ -159,7 +160,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerNumber: 0
   Motor: {fileID: 11400000, guid: 4dba988ee97f61442a8e68c1c8d4514f, type: 2}
---- !u!114 &114235403267732020
+  State: {fileID: 0}
+--- !u!114 &114204454165617176
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -172,6 +174,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerNumber: 0
   Motor: {fileID: 11400000, guid: e205d8a19793b5d4db38a49c835c5793, type: 2}
+  State: {fileID: 114779511176583146}
 --- !u!114 &114720055254950748
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -183,6 +186,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee748862a8a9dda4f84dfacc4cbd118e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114779511176583146
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1733335737418080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bda5aaab4d8ce447ad75b3e0db9b788, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MoveSpeed: 150
+  JumpForce: 75
+  AirDrag: 7
+  GroundDrag: 14
+  ShootForce: 75
+  SpreadAmount: 0.25
+  RecoilForce: 15
+  AttackSpeed: 4.5
+  SuccSpeed: 2.5
+  MaximumStorage: 20
+  MinimumStorage: 0
+  FallMultiplier: 5
+  CubeStorage: 0
+  GravityScale: 1
 --- !u!136 &136694183045771460
 CapsuleCollider:
   m_ObjectHideFlags: 1
