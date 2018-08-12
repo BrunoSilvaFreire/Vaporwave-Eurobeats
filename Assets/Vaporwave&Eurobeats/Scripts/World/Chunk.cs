@@ -17,8 +17,6 @@ namespace Scripts.World {
 
 
         public void LoadMesh(World world) {
-            Debug.Log($"Building visual mesh @ {name}");
-
             var blocks = data.blocks;
             var size = blocks.GetLength(0);
             var height = blocks.GetLength(1);

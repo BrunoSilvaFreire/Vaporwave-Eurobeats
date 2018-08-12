@@ -48,6 +48,11 @@ namespace Scripts.World.Selection {
             SetAllTo(BlockMaterial.Empty);
         }
 
+        public int Count {
+            get {
+                return tiles.Count;
+            }
+        }
         public void SetAllTo(BlockMaterial material) {
             var total = tiles.Count;
             if (total <= 0) {
