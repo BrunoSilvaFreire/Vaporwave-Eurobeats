@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Name: PerlinGenerator
   m_EditorClassIdentifier: 
   amplitude: 16
-  octaveCount: 6
+  octaveCount: 8

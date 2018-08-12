@@ -44,6 +44,17 @@ namespace Scripts.World.Selection {
         private Vector3Int min;
         private Vector3Int max;
 
+        public int SolidTiles {
+            get {
+                int count = 0;
+                foreach (var tile in tiles) {
+                    count += tile.Material == BlockMaterial.Solid ? 1 : 0;
+                }
+
+                return count;
+            }
+        }
+
         public void DeleteAll() {
             SetAllTo(BlockMaterial.Empty);
         }

@@ -1,5 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Scripts.World;
+using Scripts.World.Selection;
+using Scripts.World.Utilities;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Vaporwave&Eurobeats/Motors/DudeMotor")]
@@ -29,7 +32,7 @@ public class DudeMotor : Motor {
 		dude.Cursor = entity.transform.Find("Cursor");
 	}
 
-	public override void Tick(MovableEntity entity, MoveState state) {
+	public override void Tick(MovableEntity entity, MoveState state) { 
 
 		var dude = state as DudeMoveState;
 		
@@ -44,12 +47,18 @@ public class DudeMotor : Motor {
 		}
 
 
-		dude.AttackCooldown += Time.deltaTime;
-		dude.SuccCooldown += Time.deltaTime;
+		
+		
 		if (entity.Input.GetButton("Succ")) {
+			dude.SuccCooldown += Time.deltaTime;
 			Succ(dude);
 		}
-		else if (entity.Input.GetButton("Shoot")) {
+		else if (entity.Input.GetButtonUp("Succ")) {
+			dude.SuccCooldown = 0;
+		}
+		
+		dude.AttackCooldown += Time.deltaTime;
+		if (entity.Input.GetButton("Shoot")) {
 			Shoot(dude);
 		}
 		
@@ -81,8 +90,10 @@ public class DudeMotor : Motor {
 		if (dude.CubeStorage > dude.MaximumStorage || dude.SuccCooldown * dude.SuccSpeed < 1)
 			return;
 
-
-		dude.CubeStorage++;
+		dude.SuccCooldown = 0;
+		var selection = Selections.SphereSelection(World.Instance, dude.Cursor.position.ToVector3Int(), dude.SuccArea);
+		dude.CubeStorage += selection.SolidTiles;
+		selection.DeleteAll();
 	}
 
 	private void Shoot(DudeMoveState dude) {

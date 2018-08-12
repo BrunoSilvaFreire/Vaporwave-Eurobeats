@@ -97,7 +97,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1733335737418080}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 60.14, y: 28.3, z: 36.09}
+  m_LocalPosition: {x: 30.5, y: 28.3, z: 15.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4121401826746790}
@@ -158,7 +158,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e845ee289d6d8443b554c157c7f1050, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerNumber: 0
+  PlayerNumber: 1
   Motor: {fileID: 11400000, guid: 4dba988ee97f61442a8e68c1c8d4514f, type: 2}
   State: {fileID: 0}
 --- !u!114 &114204454165617176
@@ -172,7 +172,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e845ee289d6d8443b554c157c7f1050, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerNumber: 0
+  PlayerNumber: 1
   Motor: {fileID: 11400000, guid: e205d8a19793b5d4db38a49c835c5793, type: 2}
   State: {fileID: 114779511176583146}
 --- !u!114 &114720055254950748
@@ -204,7 +204,7 @@ MonoBehaviour:
   ShootForce: 75
   SpreadAmount: 0.25
   RecoilForce: 15
-  AttackSpeed: 4.5
+  AttackSpeed: 10
   SuccSpeed: 2.5
   MaximumStorage: 20
   MinimumStorage: 0
