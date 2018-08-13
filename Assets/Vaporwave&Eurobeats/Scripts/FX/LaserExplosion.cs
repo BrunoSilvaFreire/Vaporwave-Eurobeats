@@ -10,7 +10,7 @@ public class LaserExplosion : MonoBehaviour, IPooledObject {
 	
 	private ObjectPooler _pool;
 	
-	private void Start() {
+	private void Awake() {
 		_pool = ObjectPooler.Instance;
 	}
 

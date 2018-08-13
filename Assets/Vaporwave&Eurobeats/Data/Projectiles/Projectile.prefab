@@ -291,4 +291,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cc92fc505c66804f871173a09e7da93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HitEffect: {fileID: 11400000, guid: 92dd2be8e7f8a5440889b5270270a3dd, type: 2}
+  ShootEffect: {fileID: 11400000, guid: a50b85e4721813749bceb8e866736079, type: 2}
   DestructionArea: 2

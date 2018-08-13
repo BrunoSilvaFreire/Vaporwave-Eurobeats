@@ -1,6 +1,5 @@
 ﻿using System;
 using Scripts.World.Utilities;
-using Sirenix.OdinInspector;
 using UnityEditor;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -13,9 +12,8 @@ namespace Scripts.World {
             private set;
         }
 
-        [ShowInInspector, TableMatrix(IsReadOnly = true)]
         private Chunk[,] chunks;
-
+        public LayerMask ChunkMask;
         public byte WorldWidth;
         public byte WorldDepth;
         public byte ChunkSize;
@@ -30,9 +28,8 @@ namespace Scripts.World {
             Generate();
         }
 
-        [ShowInInspector]
         public void Generate() {
-            ClearPrevious();
+            Clear();
 
             Seed = RandomSeed ? Random.Range(int.MinValue, int.MaxValue) : Seed;
             var data = Generator.Generate(this, Seed);
@@ -55,8 +52,7 @@ namespace Scripts.World {
             }
         }
 
-        [ShowInInspector]
-        public void ClearPrevious() {
+        public void Clear() {
             chunks = null;
             var childs = transform.childCount - 1;
             for (var i = childs; i >= 0; i--) {

@@ -1,11 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Scripts.World {
     public class ChunkData : IEnumerable<Vector3Int> {
-        [ShowInInspector, TableMatrix(IsReadOnly = true)]
         public BlockMaterial[,,] blocks;
 
         public ChunkData(byte chunkSize, byte chunkHeight) {

@@ -1,13 +1,12 @@
 ﻿using Scripts.World.Utilities;
-using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace Scripts.World {
     public class Chunk : MonoBehaviour {
         public MeshFilter Filter;
         public MeshCollider Collider;
 
-        [ShowInInspector, ReadOnly]
         private ChunkData data;
 
         public Vector2Int CachedPos {
@@ -114,9 +113,12 @@ namespace Scripts.World {
 
         public void LoadData(World world, ChunkData chunkData, int x, int y) {
             var go = gameObject;
+            go.layer = world.ChunkMask;
             var col = go.AddComponent<MeshCollider>();
             var filter = go.AddComponent<MeshFilter>();
-            go.AddComponent<MeshRenderer>().material = world.ChunkMaterial;
+            var r = go.AddComponent<MeshRenderer>();
+            r.shadowCastingMode = ShadowCastingMode.Off;
+            r.material = world.ChunkMaterial;
             Collider = col;
             Filter = filter;
             data = chunkData;

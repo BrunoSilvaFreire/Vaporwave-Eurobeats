@@ -1,0 +1,12 @@
+{
+    "name": "VE-UI",
+    "references": [
+        "VE-Entity",
+        "VE-Utilities",
+        "VE-World"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false
+}

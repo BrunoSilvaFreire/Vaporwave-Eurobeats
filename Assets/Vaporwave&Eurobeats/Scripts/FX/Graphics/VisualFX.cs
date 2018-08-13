@@ -1,9 +1,8 @@
-﻿using Sirenix.OdinInspector;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Scripts.FX.Graphics {
     public abstract class StandaloneVisualFX : VisualFX {
-        [SerializeField, ReadOnly]
+        [SerializeField]
         protected Material Material;
 
         public override Material GetMaterial() {

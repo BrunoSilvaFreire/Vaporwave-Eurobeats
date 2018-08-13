@@ -1,5 +1,4 @@
 ﻿using DG.Tweening;
-using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Scripts.FX.Graphics {
@@ -10,7 +9,6 @@ namespace Scripts.FX.Graphics {
         public const string AmountKey = "_Amount";
 
 
-        [ShowInInspector]
         public Color Color {
             get {
                 if (Material == null) {
@@ -28,7 +26,6 @@ namespace Scripts.FX.Graphics {
             }
         }
 
-        [ShowInInspector]
         public float Amount {
             get {
                 if (Material == null) {

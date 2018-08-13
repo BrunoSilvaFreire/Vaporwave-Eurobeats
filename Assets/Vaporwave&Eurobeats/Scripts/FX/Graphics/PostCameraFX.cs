@@ -1,15 +1,12 @@
-﻿using Sirenix.OdinInspector;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Scripts.FX.Graphics {
     [ExecuteInEditMode]
     public abstract class PostCameraFX<T> : MonoBehaviour {
         public static readonly string ShaderName = $"PostFX/{typeof(T).Name}";
 
-        [ShowInInspector, ReadOnly]
         protected Material material;
 
-        [Button]
         private void Reset() {
             material = null;
         }

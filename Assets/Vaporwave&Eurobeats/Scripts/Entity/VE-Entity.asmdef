@@ -1,0 +1,11 @@
+{
+    "name": "VE-Entity",
+    "references": [
+        "VE-Utilities",
+        "VE-World"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false
+}
