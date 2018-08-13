@@ -124,7 +124,7 @@ public class DudeMotor : Motor {
 		dude.SuccCooldown = 0;
 
 		RaycastHit hit;
-		if (Physics.Raycast(dude.transform.position + Vector3.up, (dude.Cursor.position - dude.transform.position).normalized, out hit,
+		if (Physics.Raycast(dude.transform.position, (dude.Cursor.position - dude.transform.position).normalized, out hit,
 			(dude.Cursor.position - dude.transform.position).magnitude, ~((1 << 10) & (1 << 11)))) {
 			var selection = Selections.SphereSelection(World.Instance, hit.point.ToVector3Int() + Vector3Int.down,
 				dude.SuccArea);
