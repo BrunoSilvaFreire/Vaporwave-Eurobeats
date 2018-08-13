@@ -149,9 +149,9 @@ public class DudeMotor : Motor {
 		_fx.ScreenShake(0.1f, 0.25f);
 		dude.CubeStorage = 0;
 
-		var dir = (dude.Cursor.position - dude.Tr.position + Vector3.up).normalized;
-		var granade = _pool.SpawnFromPool("Granade", dude.Tr.position, Quaternion.identity);
-		granade.GetComponent<ProjectileBehaviour>().Shoot(dir, dude.ShootForce);
+		var dir = (dude.Cursor.position - dude.Tr.position).normalized;
+		var granade = _pool.SpawnFromPool("Granade", dude.Tr.position + dir * 4, Quaternion.identity);
+		granade.GetComponent<ProjectileBehaviour>().Shoot((dir + Vector3.up * 0.5f).normalized, dude.GranadeForce);
 		
 		dude.Rb.AddForce(-dir * dude.RecoilForce, ForceMode.Impulse);
 	}

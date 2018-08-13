@@ -498,6 +498,7 @@ MonoBehaviour:
   AirDrag: 7
   GroundDrag: 14
   ShootForce: 75
+  GranadeForce: 75
   SpreadAmount: 0.1
   RecoilForce: 7.5
   AttackSpeed: 10

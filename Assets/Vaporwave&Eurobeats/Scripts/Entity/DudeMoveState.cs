@@ -10,6 +10,7 @@ public class DudeMoveState : MoveState {
 	public float AirDrag;
 	public float GroundDrag;
 	public float ShootForce;
+	public float GranadeForce;
 	public float SpreadAmount;
 	public float RecoilForce;
 	public float AttackSpeed;

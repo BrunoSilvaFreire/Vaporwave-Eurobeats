@@ -26,6 +26,7 @@ public class DudeProxy : MonoBehaviour {
 		_anima.SetInteger("VerticalSpeed", Mathf.RoundToInt(_rb.velocity.y));
 		_anima.SetBool("Shooting", _dude.Shooting);
 		_anima.SetBool("Succ", _dude.Succ);
+		_anima.SetBool("Granade", _dude.Granade);
 	}
 
 	public void DrawEnded() {

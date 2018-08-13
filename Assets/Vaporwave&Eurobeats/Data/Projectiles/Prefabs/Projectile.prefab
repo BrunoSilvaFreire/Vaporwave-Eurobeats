@@ -293,4 +293,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HitEffect: {fileID: 11400000, guid: 92dd2be8e7f8a5440889b5270270a3dd, type: 2}
   ShootEffect: {fileID: 11400000, guid: a50b85e4721813749bceb8e866736079, type: 2}
+  GravityScale: 0
   DestructionArea: 2
