@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using System.Net;
+using Scripts.World.Selection;
+using UnityEngine;
 
 namespace Scripts.World.Generation {
     [CreateAssetMenu(menuName = "VE/World/Generator/PerlinGenerator")]
@@ -19,25 +22,23 @@ namespace Scripts.World.Generation {
             for (int exp = 0; exp < ExplosionsCount; exp++) {
 
                 int randomExpX = Random.Range(0, size);
-                int randomExpZ = Random.Range(0, size);      
-                Debug.Log("Explosion: " + exp + "At " + new Vector2(randomExpX, randomExpZ));
-                for (int x = randomExpX - ExplosionsSize; x < randomExpX + ExplosionsSize; x++) {
-                    if (x < 0 || x >= size)
+                int randomExpZ = Random.Range(0, size);
+
+
+                var selection = Selections.SelectSphere(
+                    new Vector3Int(randomExpX, (int) (world.ChunkHeight * 0.25f), randomExpZ), ExplosionsSize).ToList();
+
+                for (int i = 0; i < selection.Count; i++) {
+                    if (selection[i].x < 0 || selection[i].x >= size || selection[i].z < 0 || selection[i].z >= size)
                         continue;
-                    for (int z = randomExpZ - ExplosionsSize; z < randomExpZ + ExplosionsSize; z++) {
-                        if (z < 0 || z >= size)
-                            continue;
-
-                        Debug.Log("xz: " + new Vector2(x, z));
-                        noise[x, z] *= ExplosionCurve.Evaluate((float) x / ExplosionsSize * 2) *
-                                       ExplosionCurve.Evaluate((float) z / ExplosionsSize * 2);
-
-                    }
+                    
+                    noise[selection[i].x, selection[i].z] = 0;
                 }
+
             }
-            
-            
-            
+
+
+
 
             for (int x = 0; x < size; x++) {
                 for (int z = 0; z < size; z++) {
