@@ -10090,6 +10090,52 @@ Mesh:
   m_BakedConvexCollisionMesh: 
   m_BakedTriangleCollisionMesh: 
   m_MeshOptimized: 0
+--- !u!1001 &363938069
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4140151305115486, guid: 7b026b423eb40ba4591640c84871669e, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 25.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4140151305115486, guid: 7b026b423eb40ba4591640c84871669e, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 9.58
+      objectReference: {fileID: 0}
+    - target: {fileID: 4140151305115486, guid: 7b026b423eb40ba4591640c84871669e, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 20.43
+      objectReference: {fileID: 0}
+    - target: {fileID: 4140151305115486, guid: 7b026b423eb40ba4591640c84871669e, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4140151305115486, guid: 7b026b423eb40ba4591640c84871669e, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4140151305115486, guid: 7b026b423eb40ba4591640c84871669e, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4140151305115486, guid: 7b026b423eb40ba4591640c84871669e, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4140151305115486, guid: 7b026b423eb40ba4591640c84871669e, type: 2}
+      propertyPath: m_RootOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1750933677358534, guid: 7b026b423eb40ba4591640c84871669e, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 7b026b423eb40ba4591640c84871669e, type: 2}
+  m_IsPrefabParent: 0
 --- !u!43 &364546717
 Mesh:
   m_ObjectHideFlags: 0
@@ -58501,7 +58547,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 4c0b145e94de5764e8a7aba8ee8b6bff, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 9590bfa56ad0d854ca112697934d0eb8, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.25
   m_Pitch: 1

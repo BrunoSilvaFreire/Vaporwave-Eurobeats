@@ -143,6 +143,13 @@ public class DudeMotor : Motor {
 	}
 
 	private void Granade(DudeMoveState dude) {
+		
+		if (dude.AttackCooldown * dude.AttackSpeed > 1) {
+			dude.AttackCooldown = 0;
+			dude.WeaponEffect.Execute(dude.transform.position);
+		} else
+			return;
+		
 		if (dude.CubeStorage < dude.MaximumStorage * 0.8f)
 			return;
 		
@@ -157,10 +164,18 @@ public class DudeMotor : Motor {
 	}
 
 	private void Shoot(DudeMoveState dude) {
-		if (dude.CubeStorage < dude.MinimumStorage || dude.AttackCooldown * dude.AttackSpeed < 1)
+
+
+		if (dude.AttackCooldown * dude.AttackSpeed > 1) {
+			dude.AttackCooldown = 0;
+			dude.WeaponEffect.Execute(dude.transform.position);
+		} else
+			return;
+			
+		
+		if (dude.CubeStorage < dude.MinimumStorage)
 			return;
 
-		dude.AttackCooldown = 0f;
 		dude.CubeStorage--;
 		_fx.ScreenShake(0.1f, 0.25f);
 
