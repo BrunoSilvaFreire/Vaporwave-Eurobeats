@@ -11,6 +11,7 @@ public abstract class Motor : ScriptableObject {
 
 public sealed class MovableEntity : MonoBehaviour {
     public const  float Glossiness = 1.25F;
+    public const  float Emission = .2F;
     [SerializeField]
     private byte playerNumber;
 
@@ -72,6 +73,7 @@ public sealed class MovableEntity : MonoBehaviour {
         if (dudeMaterial == null) {
             dudeMaterial = new Material(Shader.Find(ShaderName));
             dudeMaterial.SetFloat("_Metallic", Glossiness);
+            dudeMaterial.SetFloat("_EmissionScale", Emission);
         }
 
         Renderer.material = dudeMaterial;

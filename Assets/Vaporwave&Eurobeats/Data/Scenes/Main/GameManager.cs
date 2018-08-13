@@ -75,7 +75,7 @@ namespace Data.Scenes.Main {
             yield return new WaitForSeconds(WaitDuration);
             EndPanel.Show();
             ToSelectOnEnd.Select();
-            SetInputMaps(true);
+            //SetInputMaps(true);
         }
 
         private void Start() {
@@ -100,7 +100,7 @@ namespace Data.Scenes.Main {
             }
 
             EndPanel.Hide();
-            SetInputMaps(false);
+            //SetInputMaps(false);
 
             var players = GameData.ActivePlayers;
             if (players == null) {
@@ -134,7 +134,7 @@ namespace Data.Scenes.Main {
             var newEntities = new List<MovableEntity>();
             foreach (var playerData in players) {
                 var world = World.Instance;
-                var position = new Vector2(Random.value, Random.value);
+                var position = GetPos(playerData.Player);
                 var spawnPoint = world.ToSpawnPoint(position);
                 MovableEntity entity;
                 if (reloadPlayer) {
@@ -156,11 +156,27 @@ namespace Data.Scenes.Main {
                 if (s != null) {
                     s.CubeStorage = s.MaximumStorage;
                 }
+
                 newEntities.Add(entity);
             }
 
             playerEntities.Clear();
             playerEntities.AddRange(newEntities);
+        }
+
+        private Vector2 GetPos(byte playerDataPlayer) {
+            switch (playerDataPlayer) {
+                case 0:
+                    return new Vector2(0.25F, 0.25F);
+                case 1:
+                    return new Vector2(0.25F, 0.75F);
+                case 2:
+                    return new Vector2(0.75F, 0.25F);
+                case 3:
+                    return new Vector2(0.75F, 0.75F);
+            }
+
+            return new Vector2(.5F, .5F);
         }
     }
 }

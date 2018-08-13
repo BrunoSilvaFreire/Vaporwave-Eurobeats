@@ -141,8 +141,7 @@ namespace Scripts.World {
             var chunkX = x % ChunkSize;
             var chunkY = y % ChunkSize;
             var height = 0;
-            while (height < ChunkHeight && chunk[chunkX, height++, chunkY] == BlockMaterial.Solid);
-
+            while (height < ChunkHeight && chunk[chunkX, height++, chunkY] == BlockMaterial.Solid) ;
             return height;
         }
     }
