@@ -36,7 +36,6 @@ namespace Scripts.FX {
         private void Update() {
             if (current >= perlin.Length) {
                 current %= perlin.Length;
-                Debug.Log($"Lenght = {current}/{perlin.Length}");
             }
 
             Light.intensity = perlin[current++] * Intensity;

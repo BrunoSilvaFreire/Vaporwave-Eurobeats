@@ -4,7 +4,8 @@
         "VE-Entity",
         "VE-Utilities",
         "VE-World",
-        "VE-Characters"
+        "VE-Characters",
+        "VE-Game"
     ],
     "optionalUnityReferences": [],
     "includePlatforms": [],
