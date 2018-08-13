@@ -18,8 +18,11 @@ public class DudeMoveState : MoveState {
 	public int MaximumStorage;
 	public int MinimumStorage;
 	public float FallMultiplier = 2.5f;
+	public float AimAssistRange = 10;
 	public int CubeStorage = 0;
 	public float GravityScale = 1.0f;
+
+	public List<GameObject> Dudes { get; set; }
 	
 	public int CursorDirection { get; set; }
 	
@@ -28,6 +31,8 @@ public class DudeMoveState : MoveState {
 	public bool WeaponDraw { get; set; }
 	
 	public bool Shooting { get; set; }
+	
+	public bool Granade { get; set; }
 	
 	public bool Succ { get; set; }
 
