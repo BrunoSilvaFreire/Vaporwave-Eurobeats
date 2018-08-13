@@ -9,7 +9,7 @@ namespace Scripts.World.Generation {
         public byte Size = 4;
 
         public override ChunkData[,] Generate(World world, int seed) {
-            byte width = world.WorldWidth, height = world.ChunkHeight;
+            byte width = world.WorldWidth, height = world.WorldDepth;
             var data = new ChunkData[width, height];
             byte chunkSize = world.ChunkSize, chunkHeight = world.ChunkHeight;
             for (byte x = 0; x < width; x++) {

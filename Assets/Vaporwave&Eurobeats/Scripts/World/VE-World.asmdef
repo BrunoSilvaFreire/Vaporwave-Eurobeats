@@ -1,3 +1,10 @@
-﻿{
-	"name": "VE-World"
+{
+    "name": "VE-World",
+    "references": [
+        "VE-Utilities"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false
 }
