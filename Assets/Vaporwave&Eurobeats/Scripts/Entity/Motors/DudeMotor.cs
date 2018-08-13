@@ -122,23 +122,31 @@ public class DudeMotor : Motor {
 			return;
 
 		dude.SuccCooldown = 0;
-		var selection = Selections.SphereSelection(World.Instance, dude.Cursor.position.ToVector3Int(), dude.SuccArea);
 
-		var tiles = selection.SolidTiles.ToList();
+		RaycastHit hit;
+		if (Physics.Raycast(dude.transform.position, (dude.Cursor.position - dude.transform.position).normalized, out hit,
+			(dude.Cursor.position - dude.transform.position).magnitude)) {
+			var selection = Selections.SphereSelection(World.Instance, hit.point.ToVector3Int() + Vector3Int.down,
+				dude.SuccArea);
 
-		var cubes = tiles.Count;
+			var tiles = selection.SolidTiles.ToList();
+
+			var cubes = tiles.Count;
 	
-		dude.StartCoroutine(DoSucc(tiles, cubes));
+			dude.StartCoroutine(DoSucc(tiles, cubes));
 		
 		
-		dude.CubeStorage += cubes;
-		selection.DeleteAll();
+			dude.CubeStorage += cubes;
+			selection.DeleteAll();
+		}
+		
+		
 	}
 
 	private IEnumerator DoSucc(List<WorldTile> tiles, int count) {
 		for (int i = 0; i < count; i++) {
 			_pool.SpawnFromPool("SuccCube", tiles[i].Position + Vector3.one / 2, Quaternion.identity);
-			yield return new WaitForSeconds(0.1f);
+			yield return null;
 		}
 	}
 
@@ -157,7 +165,7 @@ public class DudeMotor : Motor {
 		dude.CubeStorage = 0;
 
 		var dir = (dude.Cursor.position - dude.Tr.position).normalized;
-		var granade = _pool.SpawnFromPool("Granade", dude.Tr.position + dir * 4, Quaternion.identity);
+		var granade = _pool.SpawnFromPool("Granade", dude.Tr.position + dir, Quaternion.identity);
 		granade.GetComponent<ProjectileBehaviour>().Shoot((dir + Vector3.up * 0.5f).normalized, dude.GranadeForce);
 		
 		dude.Rb.AddForce(-dir * dude.RecoilForce, ForceMode.Impulse);
