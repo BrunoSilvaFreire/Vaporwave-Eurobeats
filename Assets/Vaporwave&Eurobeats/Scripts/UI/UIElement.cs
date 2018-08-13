@@ -1,16 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class UIElement : MonoBehaviour {
+namespace Scripts.UI {
+	public abstract class UIElement : UIView {
 
-	// Use this for initialization
-	void Start () {
-		
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+	public class UIView : MonoBehaviour {
+
 	}
 }
