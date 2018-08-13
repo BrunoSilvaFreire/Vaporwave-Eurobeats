@@ -12,18 +12,30 @@ public class ProjectileBehaviour : MonoBehaviour {
     private ObjectPooler _pool;
     public WorldEffect HitEffect;
     public WorldEffect ShootEffect;
+    public float GravityScale = 1;
     public float DestructionArea = 5;
     private void Awake() {
         _rb = GetComponent<Rigidbody>();
+       
         _pool = ObjectPooler.Instance;
     }
-
 
     public void Shoot(Vector3 dir, float force) {
         _rb.velocity = Vector3.zero;
         _rb.AddForce(dir * force, ForceMode.Impulse);
         _rb.AddTorque(Random.insideUnitSphere * force, ForceMode.Impulse);
         ShootEffect.ExecuteIfPresent(transform.position);
+    }
+
+
+    private void FixedUpdate() {
+        if (_rb.useGravity)
+            ApplyGravity();
+    }
+
+    private void ApplyGravity() {
+        var gravity = Physics.gravity * GravityScale;
+        _rb.AddForce(gravity, ForceMode.Acceleration);
     }
 
     private void OnCollisionEnter(Collision other) {

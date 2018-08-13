@@ -498,6 +498,7 @@ MonoBehaviour:
   AirDrag: 7
   GroundDrag: 14
   ShootForce: 75
+  GranadeForce: 75
   SpreadAmount: 0.1
   RecoilForce: 7.5
   AttackSpeed: 10
@@ -509,7 +510,6 @@ MonoBehaviour:
   AimAssistRange: 200
   CubeStorage: 0
   GravityScale: 1
-  Dudes: []
 --- !u!114 &114851393887303990
 MonoBehaviour:
   m_ObjectHideFlags: 1
