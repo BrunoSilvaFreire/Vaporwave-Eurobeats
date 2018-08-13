@@ -20,12 +20,15 @@ namespace Scripts.World {
         public byte ChunkHeight;
         public bool RandomSeed;
         public int Seed;
+        public bool GenerateOnStart;
         public WorldGenerator Generator;
         public Material ChunkMaterial;
 
-        private void Start() {
+        private void Awake() {
             Instance = this;
-            Generate();
+            if (GenerateOnStart) {
+                Generate();
+            }
         }
 
         public void Generate() {
@@ -76,7 +79,8 @@ namespace Scripts.World {
             var chunkY = pos.z / ChunkSize;
             var chunk = chunks[chunkX, chunkY];
             if (chunk == null) {
-                Debug.LogWarning($"Null chunk ({chunkX}, {chunkY}) {pos}, would access @ ({pos.x % ChunkSize}, {pos.y}, {pos.z % ChunkSize}");
+                Debug.LogWarning(
+                    $"Null chunk ({chunkX}, {chunkY}) {pos}, would access @ ({pos.x % ChunkSize}, {pos.y}, {pos.z % ChunkSize}");
                 return BlockMaterial.Empty;
             }
 
@@ -123,6 +127,23 @@ namespace Scripts.World {
             var chunkY = z / ChunkSize;
             var chunk = chunks[chunkX, chunkY];
             return chunk == null ? BlockMaterial.Empty : chunk[x % ChunkSize, y, z % ChunkSize];
+        }
+
+        public Vector3 ToSpawnPoint(Vector2 position) {
+            var x = (int) (position.x * ChunkSize * WorldWidth);
+            var y = (int) (position.y * ChunkSize * WorldDepth);
+            var height = GetHighestBlockAt(x, y);
+            return new Vector3(x + .5F, height, y + .5F);
+        }
+
+        private int GetHighestBlockAt(int x, int y) {
+            var chunk = GetChunkAt(new Vector3Int(x, 0, y));
+            var chunkX = x % ChunkSize;
+            var chunkY = y % ChunkSize;
+            var height = 0;
+            while (height < ChunkHeight && chunk[chunkX, height++, chunkY] == BlockMaterial.Solid);
+
+            return height;
         }
     }
 }

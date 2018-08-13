@@ -1,10 +1,18 @@
-﻿using Rewired;
+﻿using System.Collections;
+using System.Linq;
+using Rewired;
+using Scripts.Game;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityUtilities.Singletons;
 
 namespace Data.Scenes.MainMenu.Scripts {
     public class LobbyManager : Singleton<LobbyManager> {
         public PlayerSelector[] PlayerSelectors;
+        public string MainScene = "Main";
+        public GameObject[] DestroyOnStart;
+        public string[] InputMapsToDisable;
+        public string[] InputMapsToEnable;
 
         private void Start() {
             PlayerSelectors = FindObjectsOfType<PlayerSelector>();
@@ -35,7 +43,7 @@ namespace Data.Scenes.MainMenu.Scripts {
                     }
 
                     // Assign the joystick to this Player
-                    Assing(joystick, player);
+                    Assign(joystick, player);
                 }
             }
 
@@ -48,7 +56,7 @@ namespace Data.Scenes.MainMenu.Scripts {
             }
         }
 
-        private void Assing(Joystick joystick, Player player) {
+        private void Assign(Joystick joystick, Player player) {
             player.controllers.AddController(joystick, false);
         }
 
@@ -65,6 +73,45 @@ namespace Data.Scenes.MainMenu.Scripts {
 
         private bool DoAllPlayersHaveJoysticks() {
             return FindPlayerWithoutJoystick() == null;
+        }
+
+        public void StartGame() {
+            DontDestroyOnLoad(gameObject);
+            PersistGameData();
+            foreach (var s in InputMapsToDisable) {
+                foreach (var player in ReInput.players.Players) {
+                    foreach (var map in player.controllers.maps.GetAllMapsInCategory(s)) {
+                        map.enabled = false;
+                    }
+                }
+            }
+
+            foreach (var s in InputMapsToEnable) {
+                foreach (var player in ReInput.players.Players) {
+                    foreach (var map in player.controllers.maps.GetAllMapsInCategory(s)) {
+                        map.enabled = false;
+                    }
+                }
+            }
+
+            StartCoroutine(InitGame());
+        }
+
+        private IEnumerator InitGame() {
+            foreach (var o in DestroyOnStart) {
+                Destroy(o);
+            }
+
+            yield return SceneManager.LoadSceneAsync(MainScene);
+            Destroy(gameObject);
+        }
+
+        private void PersistGameData() {
+            GameData.ActivePlayers = (from selector in PlayerSelectors select PlayerDataFrom(selector)).ToArray();
+        }
+
+        private static PlayerData PlayerDataFrom(PlayerSelector selector) {
+            return new PlayerData(selector.PlayerID, selector.PreviewView.Character);
         }
     }
 }

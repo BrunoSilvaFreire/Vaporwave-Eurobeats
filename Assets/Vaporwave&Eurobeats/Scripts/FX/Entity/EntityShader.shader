@@ -64,7 +64,7 @@ Shader "Custom/EntityShader" {
         #pragma target 3.0
 
         sampler2D _MainTex;
-
+        sampler2D _Emission;
         struct Input {
             float2 uv_MainTex;
         };
@@ -72,13 +72,6 @@ Shader "Custom/EntityShader" {
         half _Glossiness;
         half _Metallic;
         fixed4 _Color;
-
-        // Add instancing support for this shader. You need to check 'Enable Instancing' on materials that use the shader.
-        // See https://docs.unity3d.com/Manual/GPUInstancing.html for more information about instancing.
-        // #pragma instancing_options assumeuniformscaling
-        UNITY_INSTANCING_BUFFER_START(Props)
-            // put more per-instance properties here
-        UNITY_INSTANCING_BUFFER_END(Props)
 
         void surf (Input IN, inout SurfaceOutputStandard o) {
             // Albedo comes from a texture tinted by color
@@ -88,6 +81,8 @@ Shader "Custom/EntityShader" {
             o.Metallic = _Metallic;
             o.Smoothness = _Glossiness;
             o.Alpha = c.a;
+            fixed3 e = tex2D(_Emission, IN.uv_MainTex);
+            o.Emission = e.rbg * e.a;
         }
         ENDCG
     }

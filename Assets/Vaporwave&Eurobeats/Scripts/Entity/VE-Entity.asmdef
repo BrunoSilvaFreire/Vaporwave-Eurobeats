@@ -2,7 +2,8 @@
     "name": "VE-Entity",
     "references": [
         "VE-Utilities",
-        "VE-World"
+        "VE-World",
+        "VE-Characters"
     ],
     "optionalUnityReferences": [],
     "includePlatforms": [],

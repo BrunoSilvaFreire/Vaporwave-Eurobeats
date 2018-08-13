@@ -14,7 +14,7 @@ namespace Data.Scenes.MainMenu.Scripts {
         public Color ActiveColor = Color.green;
 
         private Player player;
-        public int PlayerID;
+        public byte PlayerID;
         private int index;
         public string LeftKey = "SelectLeft";
         public string RightKey = "SelectRight";

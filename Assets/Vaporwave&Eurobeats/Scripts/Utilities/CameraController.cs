@@ -62,7 +62,7 @@ public class CameraController : Singleton<CameraController> {
         return realTarget /= midPoints.Length;
     }
 
-    private void SearchTargets() {
+    public void SearchTargets() {
         var go = GameObject.FindGameObjectsWithTag("Player");
         _player = new Transform[go.Length];
         _cursor = new Transform[go.Length];

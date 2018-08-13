@@ -35,7 +35,6 @@ namespace Scripts.UI {
                 return;
             }
 
-            float h, s, v;
             dudeMaterial.SetFloat("_HueShift", character.HueShift);
         }
 
