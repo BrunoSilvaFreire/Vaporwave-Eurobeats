@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Shiroi.FX.Effects;
 using UnityEngine;
 
 public class DudeMoveState : MoveState {
@@ -23,6 +24,8 @@ public class DudeMoveState : MoveState {
 	public int CubeStorage = 0;
 	public float GravityScale = 1.0f;
 
+	public WorldEffect WeaponEffect;
+	
 	public List<GameObject> Dudes { get; set; }
 	
 	public int CursorDirection { get; set; }

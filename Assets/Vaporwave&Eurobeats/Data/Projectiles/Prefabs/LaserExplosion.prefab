@@ -51,6 +51,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20e67387f92a5954ba1764dd3ed7e99f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CubeCount: 5
-  ExplosionForce: 50
-  ExplosionRadius: 10
+  CubeCount: 4
+  ExplosionForce: 75
+  ExplosionRadius: 11
