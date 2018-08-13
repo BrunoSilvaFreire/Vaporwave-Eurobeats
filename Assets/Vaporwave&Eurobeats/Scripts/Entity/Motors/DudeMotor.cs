@@ -32,6 +32,9 @@ public class DudeMotor : Motor {
 		var dude = state as DudeMoveState;
 		
 		dude.Cursor = entity.transform.Find("Cursor");
+
+		dude.Dudes = GameObject.FindGameObjectsWithTag("Player").ToList();
+
 	}
 
 	public override void Tick(MovableEntity entity, MoveState state) { 
@@ -55,10 +58,14 @@ public class DudeMotor : Motor {
 		else if (entity.Input.GetButton("Succ")) {
 			dude.Succ = true;
 		}
+		else if (entity.Input.GetButton("Granade")) {
+			dude.Granade = true;
+		}
 		else {
 			dude.SuccCooldown = 0;
 			dude.Succ = false;
 			dude.Shooting = false;
+			dude.Granade = false;
 			dude.WeaponDraw = false;
 		}
 		
@@ -71,6 +78,10 @@ public class DudeMotor : Motor {
 				
 			if (dude.Shooting) {
 				Shoot(dude);
+			}
+
+			if (dude.Granade) {
+				Granade(dude);
 			}
 		}
 		dude.CursorDirection = dude.Cursor.localPosition.x > 0 ? 1 : 0;
@@ -131,6 +142,20 @@ public class DudeMotor : Motor {
 		}
 	}
 
+	private void Granade(DudeMoveState dude) {
+		if (dude.CubeStorage < dude.MaximumStorage * 0.8f)
+			return;
+		
+		_fx.ScreenShake(0.1f, 0.25f);
+		dude.CubeStorage = 0;
+
+		var dir = (dude.Cursor.position - dude.Tr.position + Vector3.up).normalized;
+		var granade = _pool.SpawnFromPool("Granade", dude.Tr.position, Quaternion.identity);
+		granade.GetComponent<ProjectileBehaviour>().Shoot(dir, dude.ShootForce);
+		
+		dude.Rb.AddForce(-dir * dude.RecoilForce, ForceMode.Impulse);
+	}
+
 	private void Shoot(DudeMoveState dude) {
 		if (dude.CubeStorage < dude.MinimumStorage || dude.AttackCooldown * dude.AttackSpeed < 1)
 			return;
@@ -143,7 +168,7 @@ public class DudeMotor : Motor {
 
 		var target = closest != Vector3.zero ? closest : dude.Cursor.position;
 		
-		var dir = (((target - dude.Tr.position) + (dude.Cursor.position - dude.Tr.position)).normalized + Random.insideUnitSphere * dude.SpreadAmount).normalized;
+		var dir = ((target - dude.Tr.position + (dude.Cursor.position - dude.Tr.position)).normalized + Random.insideUnitSphere * dude.SpreadAmount).normalized;
 		var projectile = _pool.SpawnFromPool("Projectile", dude.Tr.position + dir, Quaternion.identity);
 		projectile.GetComponent<ProjectileBehaviour>().Shoot(dir, dude.ShootForce);
 		
@@ -152,19 +177,18 @@ public class DudeMotor : Motor {
 	}
 
 	private Vector3 GetClosestPlayer(DudeMoveState dude,Vector3 center) {
-		var players = Physics.OverlapSphere(center, 15, 1 << 10);
 
 		var closest = Vector3.zero;
-		float minDist = float.MaxValue;
-		foreach (var p in players) {
-			if (p.gameObject == dude.gameObject)
+		float minDist = dude.AimAssistRange * dude.AimAssistRange;
+		foreach (var d in dude.Dudes) {
+			if (d.gameObject == dude.gameObject || !d.gameObject.activeInHierarchy)
 				continue;
 		
-			var dist = (center - p.transform.position).sqrMagnitude;
-
+			var dist = (Camera.main.WorldToScreenPoint(center) - Camera.main.WorldToScreenPoint(d.transform.position)).sqrMagnitude;
 			if (dist < minDist) {
+				
 				minDist = dist;
-				closest = p.transform.position;
+				closest = d.transform.position;
 			}
 		}
 

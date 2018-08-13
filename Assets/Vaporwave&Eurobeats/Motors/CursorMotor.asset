@@ -11,4 +11,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d2df2cf9d1aa7d4099b75c61419fdd2, type: 3}
   m_Name: CursorMotor
   m_EditorClassIdentifier: 
-  _range: 10
+  _range: 4
