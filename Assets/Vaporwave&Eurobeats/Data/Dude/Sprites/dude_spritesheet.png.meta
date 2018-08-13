@@ -1,0 +1,515 @@
+fileFormatVersion: 2
+guid: 6b648565ed78d1742ba83e91c0388d78
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: dude_spritesheet_0
+    21300002: dude_spritesheet_1
+    21300004: dude_spritesheet_2
+    21300006: dude_spritesheet_3
+    21300008: dude_spritesheet_4
+    21300010: dude_spritesheet_5
+    21300012: dude_spritesheet_6
+    21300014: dude_spritesheet_7
+    21300016: dude_spritesheet_8
+    21300018: dude_spritesheet_9
+    21300020: dude_spritesheet_10
+    21300022: dude_spritesheet_11
+    21300024: dude_spritesheet_12
+    21300026: dude_spritesheet_15
+    21300028: dude_spritesheet_16
+    21300030: dude_spritesheet_17
+    21300032: dude_spritesheet_18
+    21300034: dude_spritesheet_19
+    21300036: dude_spritesheet_20
+    21300038: dude_spritesheet_21
+  externalObjects: {}
+  serializedVersion: 5
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -1
+    wrapU: 1
+    wrapV: 1
+    wrapW: -1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 300
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 2
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: dude_spritesheet_0
+      rect:
+        serializedVersion: 2
+        x: 228
+        y: 5133
+        width: 631
+        height: 603
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a172bbf8919b1794e8af4a17c42fc7ea
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dude_spritesheet_1
+      rect:
+        serializedVersion: 2
+        x: 1234
+        y: 5133
+        width: 612
+        height: 600
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1eea8549c25e43548965b271ac2da71a
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dude_spritesheet_2
+      rect:
+        serializedVersion: 2
+        x: 2211
+        y: 5133
+        width: 623
+        height: 644
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f63c7d0725b9ec8418024543a0728a4d
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dude_spritesheet_3
+      rect:
+        serializedVersion: 2
+        x: 3226
+        y: 5132
+        width: 613
+        height: 647
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dfcc43313d76af2428ec64dec3035b3e
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dude_spritesheet_4
+      rect:
+        serializedVersion: 2
+        x: 4236
+        y: 5133
+        width: 625
+        height: 644
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7c3d584a2954d894c827bc3a6e398d2f
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dude_spritesheet_5
+      rect:
+        serializedVersion: 2
+        x: 5249
+        y: 5131
+        width: 605
+        height: 634
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e6ddbe0d2a24ecd439ac1282c0d77103
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dude_spritesheet_6
+      rect:
+        serializedVersion: 2
+        x: 1271
+        y: 4206
+        width: 467
+        height: 659
+      alignment: 9
+      pivot: {x: 0.50000024, y: 0.4867675}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca3521d811b74fd4c8cd385e7db327ce
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dude_spritesheet_7
+      rect:
+        serializedVersion: 2
+        x: 2059
+        y: 4206
+        width: 669
+        height: 640
+      alignment: 9
+      pivot: {x: 0.6564168, y: 0.5136253}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 73b8ed3572f8604469d2a6211cf45fe7
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dude_spritesheet_8
+      rect:
+        serializedVersion: 2
+        x: 3049
+        y: 4206
+        width: 678
+        height: 629
+      alignment: 9
+      pivot: {x: 0.7057875, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5228b200ddedb1a4c999771d4fb2112f
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dude_spritesheet_9
+      rect:
+        serializedVersion: 2
+        x: 4057
+        y: 4206
+        width: 663
+        height: 623
+      alignment: 9
+      pivot: {x: 0.67098606, y: 0.48600286}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f50ab7146254b264fbad842eb6359854
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dude_spritesheet_10
+      rect:
+        serializedVersion: 2
+        x: 5073
+        y: 4207
+        width: 655
+        height: 628
+      alignment: 9
+      pivot: {x: 0.65975964, y: 0.4861143}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bbca7564c8fd2854892b41248fa453fc
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dude_spritesheet_11
+      rect:
+        serializedVersion: 2
+        x: 2235
+        y: 3207
+        width: 622
+        height: 576
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b9ef01d58890c904e8f4d2e25f519be2
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dude_spritesheet_12
+      rect:
+        serializedVersion: 2
+        x: 1017
+        y: 2111
+        width: 727
+        height: 631
+      alignment: 9
+      pivot: {x: 0.69191736, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 86c443e90f6287c4fa56c07b842454ad
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dude_spritesheet_15
+      rect:
+        serializedVersion: 2
+        x: 2057
+        y: 2113
+        width: 715
+        height: 715
+      alignment: 9
+      pivot: {x: 0.65420467, y: 0.43060806}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca544f64e09652a49bbd7a18fe8418b0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dude_spritesheet_16
+      rect:
+        serializedVersion: 2
+        x: 3377
+        y: 2110
+        width: 459
+        height: 815
+      alignment: 9
+      pivot: {x: 0.4810017, y: 0.38230354}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d7bc46e3b2a12ac44bffda4969da2b4b
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dude_spritesheet_17
+      rect:
+        serializedVersion: 2
+        x: 4397
+        y: 2110
+        width: 429
+        height: 797
+      alignment: 9
+      pivot: {x: 0.52032685, y: 0.3687041}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a12c62bec887a34468773eedac07621e
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dude_spritesheet_18
+      rect:
+        serializedVersion: 2
+        x: 2194
+        y: 1226
+        width: 663
+        height: 632
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c08f85feb294d3b4b84d814ed69c6250
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dude_spritesheet_19
+      rect:
+        serializedVersion: 2
+        x: 1095
+        y: 208
+        width: 634
+        height: 666
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 241688c57b438a542ace3cd2cae96cf8
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dude_spritesheet_20
+      rect:
+        serializedVersion: 2
+        x: 2107
+        y: 212
+        width: 630
+        height: 663
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9db453d876803994499be431f024da3f
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dude_spritesheet_21
+      rect:
+        serializedVersion: 2
+        x: 3119
+        y: 210
+        width: 610
+        height: 673
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 22021a8066d208a48a94effab7daaf17
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: bacb0b2d8fa7b7140acd85d9c51356dd
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

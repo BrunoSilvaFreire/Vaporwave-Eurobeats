@@ -23,14 +23,14 @@ GameObject:
   - component: {fileID: 23332533854370354}
   - component: {fileID: 65875644806544422}
   - component: {fileID: 114623975853462390}
-  - component: {fileID: 54806937990511106}
+  - component: {fileID: 54275768290544330}
   m_Layer: 11
   m_Name: LaserCube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4790378202236592
 Transform:
   m_ObjectHideFlags: 1
@@ -86,7 +86,7 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1999824230205378}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!54 &54806937990511106
+--- !u!54 &54275768290544330
 Rigidbody:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
