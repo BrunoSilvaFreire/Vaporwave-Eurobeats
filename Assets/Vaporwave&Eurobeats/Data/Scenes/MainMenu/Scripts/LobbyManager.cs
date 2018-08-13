@@ -1,9 +1,14 @@
 ﻿using Rewired;
 using UnityEngine;
+using UnityUtilities.Singletons;
 
 namespace Data.Scenes.MainMenu.Scripts {
-    public class LobbyManager : MonoBehaviour {
-        public PlayerSelector SelectorPrefab;
+    public class LobbyManager : Singleton<LobbyManager> {
+        public PlayerSelector[] PlayerSelectors;
+
+        private void Start() {
+            PlayerSelectors = FindObjectsOfType<PlayerSelector>();
+        }
 
         private void Update() {
             if (!ReInput.isReady) {

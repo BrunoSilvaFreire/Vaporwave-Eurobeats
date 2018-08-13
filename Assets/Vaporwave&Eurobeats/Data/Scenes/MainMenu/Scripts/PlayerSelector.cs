@@ -1,17 +1,23 @@
-﻿using System;
-using Rewired;
+﻿using Rewired;
 using Scripts.Characters;
 using Scripts.UI;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityUtilities;
 
 namespace Data.Scenes.MainMenu.Scripts {
     public class PlayerSelector : MonoBehaviour {
         public Text PlayerLabel;
         public UICharacterPreviewView PreviewView;
+        public Image PlayerStatusIndication;
+        public Color InactiveColor = Color.red;
+        public Color ActiveColor = Color.green;
+
         private Player player;
         public int PlayerID;
         private int index;
+        public string LeftKey = "SelectLeft";
+        public string RightKey = "SelectRight";
 
         private void Start() {
             player = ReInput.players.GetPlayer(PlayerID);
@@ -24,10 +30,17 @@ namespace Data.Scenes.MainMenu.Scripts {
                 return;
             }
 
-            var dir = Math.Sign(player.GetAxis("Horizontal"));
+            UpdateIndicatorColor();
             var db = CharacterDatabase.Instance;
             var max = db.Characters.Count;
-            index += dir;
+            if (player.GetButtonDown(LeftKey)) {
+                index--;
+            }
+
+            if (player.GetButtonDown(RightKey)) {
+                index++;
+            }
+
             if (index < 0) {
                 index += max;
             }
@@ -36,7 +49,17 @@ namespace Data.Scenes.MainMenu.Scripts {
                 index %= max;
             }
 
-            PreviewView.Character = db.Characters[index];
+            var c = db.Characters[index];
+            PreviewView.Character = c;
+            PlayerLabel.color = c.UIColor;
+        }
+
+        public bool IsValid() {
+            return !player.controllers.Joysticks.IsEmpty();
+        }
+
+        private void UpdateIndicatorColor() {
+            PlayerStatusIndication.color = IsValid() ? ActiveColor : InactiveColor;
         }
     }
 }

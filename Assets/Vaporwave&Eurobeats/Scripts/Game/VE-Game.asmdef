@@ -1,3 +1,10 @@
-﻿{
-	"name": "VE-Game"
+{
+    "name": "VE-Game",
+    "references": [
+        "VE-Characters"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false
 }
