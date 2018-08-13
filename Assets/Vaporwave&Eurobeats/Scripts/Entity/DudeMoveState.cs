@@ -20,7 +20,16 @@ public class DudeMoveState : MoveState {
 	public float FallMultiplier = 2.5f;
 	public int CubeStorage = 0;
 	public float GravityScale = 1.0f;
+	
+	public int CursorDirection { get; set; }
+	
+	public int Direction { get; set; }
 
+	public bool WeaponDraw { get; set; }
+	
+	public bool Shooting { get; set; }
+	
+	public bool Succ { get; set; }
 
 	public float AttackCooldown { get; set; } = 0f;
 

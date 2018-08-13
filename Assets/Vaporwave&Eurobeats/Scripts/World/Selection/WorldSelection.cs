@@ -39,15 +39,15 @@ namespace Scripts.World.Selection {
 
 
     public sealed class WorldSelection : IEnumerable<WorldTile> {
-        private List<WorldTile> tiles;
+        public List<WorldTile> Tiles;
         private World world;
         private Vector3Int min;
         private Vector3Int max;
 
-        public int SolidTiles {
+        public int SolidTilesCount {
             get {
                 int count = 0;
-                foreach (var tile in tiles) {
+                foreach (var tile in Tiles) {
                     count += tile.Material == BlockMaterial.Solid ? 1 : 0;
                 }
 
@@ -61,11 +61,22 @@ namespace Scripts.World.Selection {
 
         public int Count {
             get {
-                return tiles.Count;
+                return Tiles.Count;
             }
         }
+        
+        public IEnumerable<WorldTile> SolidTiles {
+            get {
+                foreach (var tile in Tiles) {
+                    if (tile.Material == BlockMaterial.Solid) {
+                        yield return tile;
+                    }
+                }
+            }
+        }
+        
         public void SetAllTo(BlockMaterial material) {
-            var total = tiles.Count;
+            var total = Tiles.Count;
             if (total <= 0) {
                 Debug.LogWarning("Selection is empty!");
                 return;
@@ -74,7 +85,7 @@ namespace Scripts.World.Selection {
             var i = 0;
             var chunks = new List<Chunk>();
             do {
-                var tile = tiles[i++];
+                var tile = Tiles[i++];
                 if (tile.Material == material) {
                     continue;
                 }
@@ -119,13 +130,13 @@ namespace Scripts.World.Selection {
 
 
         private WorldSelection(List<WorldTile> tiles, World world, Vector3Int min, Vector3Int max) {
-            this.tiles = tiles;
+            this.Tiles = tiles;
             this.world = world;
             this.min = min;
             this.max = max;
         }
 
-        public IEnumerator<WorldTile> GetEnumerator() => ((IEnumerable<WorldTile>) tiles).GetEnumerator();
+        public IEnumerator<WorldTile> GetEnumerator() => ((IEnumerable<WorldTile>) Tiles).GetEnumerator();
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 

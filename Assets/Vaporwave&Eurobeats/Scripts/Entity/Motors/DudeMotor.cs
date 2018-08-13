@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Scripts.World;
 using Scripts.World.Selection;
 using Scripts.World.Utilities;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 [CreateAssetMenu(menuName = "Vaporwave&Eurobeats/Motors/DudeMotor")]
 public class DudeMotor : Motor {
@@ -47,24 +49,42 @@ public class DudeMotor : Motor {
 		}
 
 
-		
-		
-		if (entity.Input.GetButton("Succ")) {
-			dude.SuccCooldown += Time.deltaTime;
-			Succ(dude);
+		if (entity.Input.GetButton("Shoot")) {
+			dude.Shooting = true;
 		}
-		else if (entity.Input.GetButtonUp("Succ")) {
+		else if (entity.Input.GetButton("Succ")) {
+			dude.Succ = true;
+		}
+		else {
 			dude.SuccCooldown = 0;
+			dude.Succ = false;
+			dude.Shooting = false;
+			dude.WeaponDraw = false;
 		}
 		
 		dude.AttackCooldown += Time.deltaTime;
-		if (entity.Input.GetButton("Shoot")) {
-			Shoot(dude);
+		if (dude.WeaponDraw) {
+			if (dude.Succ) {
+				dude.SuccCooldown += Time.deltaTime;
+				Succ(dude);
+			}
+				
+			if (dude.Shooting) {
+				Shoot(dude);
+			}
+		}
+		dude.CursorDirection = dude.Cursor.localPosition.x > 0 ? 1 : 0;
+
+		if (!dude.Succ) {
+			var hori = entity.Input.GetAxis("Horizontal");
+			var vert = entity.Input.GetAxis("Vertical");
+			if (hori != 0) {
+				dude.Direction = hori > 0 ? 1 : 0;
+			}
+		
+			Move(dude, hori, vert);
 		}
 		
-		var hori = entity.Input.GetAxis("Horizontal");
-		var vert = entity.Input.GetAxis("Vertical");
-		Move(dude, hori, vert);
 	}
 
 	public override void FixedTick(MovableEntity entity, MoveState state) {
@@ -92,25 +112,63 @@ public class DudeMotor : Motor {
 
 		dude.SuccCooldown = 0;
 		var selection = Selections.SphereSelection(World.Instance, dude.Cursor.position.ToVector3Int(), dude.SuccArea);
-		dude.CubeStorage += selection.SolidTiles;
+
+		var tiles = selection.SolidTiles.ToList();
+
+		var cubes = tiles.Count;
+	
+		dude.StartCoroutine(DoSucc(tiles, cubes));
+		
+		
+		dude.CubeStorage += cubes;
 		selection.DeleteAll();
+	}
+
+	private IEnumerator DoSucc(List<WorldTile> tiles, int count) {
+		for (int i = 0; i < count; i++) {
+			_pool.SpawnFromPool("SuccCube", tiles[i].Position + Vector3.one / 2, Quaternion.identity);
+			yield return new WaitForSeconds(0.1f);
+		}
 	}
 
 	private void Shoot(DudeMoveState dude) {
 		if (dude.CubeStorage < dude.MinimumStorage || dude.AttackCooldown * dude.AttackSpeed < 1)
 			return;
 
-		
-		_fx.ScreenShake(0.1f, 0.25f);
-		
 		dude.AttackCooldown = 0f;
 		dude.CubeStorage--;
-		var dir = ((dude.Cursor.position - dude.Tr.position).normalized + Random.insideUnitSphere * dude.SpreadAmount).normalized;
+		_fx.ScreenShake(0.1f, 0.25f);
+
+		var closest = GetClosestPlayer(dude, dude.Cursor.position);
+
+		var target = closest != Vector3.zero ? closest : dude.Cursor.position;
+		
+		var dir = (((target - dude.Tr.position) + (dude.Cursor.position - dude.Tr.position)).normalized + Random.insideUnitSphere * dude.SpreadAmount).normalized;
 		var projectile = _pool.SpawnFromPool("Projectile", dude.Tr.position + dir, Quaternion.identity);
 		projectile.GetComponent<ProjectileBehaviour>().Shoot(dir, dude.ShootForce);
 		
 
 		dude.Rb.AddForce(-dir * dude.RecoilForce, ForceMode.Impulse);
+	}
+
+	private Vector3 GetClosestPlayer(DudeMoveState dude,Vector3 center) {
+		var players = Physics.OverlapSphere(center, 15, 1 << 10);
+
+		var closest = Vector3.zero;
+		float minDist = float.MaxValue;
+		foreach (var p in players) {
+			if (p.gameObject == dude.gameObject)
+				continue;
+		
+			var dist = (center - p.transform.position).sqrMagnitude;
+
+			if (dist < minDist) {
+				minDist = dist;
+				closest = p.transform.position;
+			}
+		}
+
+		return closest;
 	}
 	
 	private void Jump(DudeMoveState dude) {
