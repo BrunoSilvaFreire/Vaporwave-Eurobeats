@@ -4,10 +4,14 @@ using UnityEngine;
 using UnityUtilities.Singletons;
 
 public class CameraController : Singleton<CameraController> {
+    
     public float MinZoom, MaxZoom;
 
+    private Coroutine _moveRoutine;
     private Transform _camera;
     private Transform[] _player, _cursor;
+
+    private bool _moving;
 
     private void Awake() {
         _camera = Camera.main.transform;
@@ -18,8 +22,38 @@ public class CameraController : Singleton<CameraController> {
     }
 
     private void Update() {
+
+        if (_moving)
+            return;
+        
         transform.position = Vector3.Lerp(transform.position, GetTargetPosition(), 0.1f);
         _camera.localPosition = Vector3.Lerp(_camera.localPosition, -_camera.forward * GetTargetZoom(), 0.1f);
+    }
+
+
+    public void MoveToPosition(Vector3 position, Quaternion rotation, float timeToMove) {
+        if (_moveRoutine != null) {
+            StopCoroutine(_moveRoutine);
+        }
+
+        _moveRoutine = StartCoroutine(DoMoveToPosition(position, rotation, timeToMove));
+
+    }
+
+    private IEnumerator DoMoveToPosition(Vector3 position, Quaternion rotation, float timeToMove) {
+        _moving = true;
+        var lastPos = transform.position;
+        var lastRotation = transform.rotation;
+        float timer = 0;
+        while (timer < timeToMove) {
+            transform.position = Vector3.Lerp(lastPos, position, timer / timeToMove);
+            transform.rotation = Quaternion.Slerp(lastRotation, rotation, timer / timeToMove);
+            timer += Time.deltaTime;
+            yield return null;
+        }
+        _moving = false;
+        transform.position = position;
+        transform.rotation = rotation;
     }
 
     private float GetTargetZoom() {

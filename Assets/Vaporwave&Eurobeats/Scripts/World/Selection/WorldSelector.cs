@@ -7,7 +7,7 @@ namespace Scripts.World.Selection {
             return WorldSelection.FromEnumerable(world, SelectSphere(center, radius));
         }
 
-        private static IEnumerable<Vector3Int> SelectSphere(Vector3Int center, float radius) {
+        public static IEnumerable<Vector3Int> SelectSphere(Vector3Int center, float radius) {
             var minX = (int) (center.x - radius);
             var minY = (int) (center.y - radius);
             var minZ = (int) (center.z - radius);
