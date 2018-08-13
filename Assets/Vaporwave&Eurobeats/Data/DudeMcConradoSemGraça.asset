@@ -11,6 +11,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 982dfccf2b550454b85ba360292b64f8, type: 3}
   m_Name: "DudeMcConradoSemGra\xE7a"
   m_EditorClassIdentifier: 
-  UIColor: {r: 0, g: 0, b: 0, a: 0}
+  UIColor: {r: 0.09019608, g: 0.9490197, b: 0.9176471, a: 1}
   HueShift: -0.35
   Alias: Conra Dude (Our friend who is no fun)

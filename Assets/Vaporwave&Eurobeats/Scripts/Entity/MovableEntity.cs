@@ -10,11 +10,13 @@ public abstract class Motor : ScriptableObject {
 }
 
 public sealed class MovableEntity : MonoBehaviour {
+    public const  float Glossiness = 1.25F;
     [SerializeField]
     private byte playerNumber;
 
     public Motor Motor;
     public MoveState State;
+    public SpriteRenderer Renderer;
 
     public Player Input {
         get;
@@ -27,7 +29,7 @@ public sealed class MovableEntity : MonoBehaviour {
         }
         set {
             playerNumber = value;
-            Input = ReInput.players.GetPlayer(PlayerNumber);
+            Input = ReInput.players.GetPlayer(value);
         }
     }
 
@@ -49,6 +51,29 @@ public sealed class MovableEntity : MonoBehaviour {
     }
 
     public void LoadCharacter(Character character) {
-        
+        this.character = character;
+        UpdateView();
+    }
+
+    private const string ShaderName = "Custom/EntityShader";
+    private Material dudeMaterial;
+    private Character character;
+
+    private void UpdateView() {
+        CheckDudeMaterial();
+        if (character == null) {
+            return;
+        }
+
+        dudeMaterial.SetFloat("_HueShift", character.HueShift);
+    }
+
+    private void CheckDudeMaterial() {
+        if (dudeMaterial == null) {
+            dudeMaterial = new Material(Shader.Find(ShaderName));
+            dudeMaterial.SetFloat("_Metallic", Glossiness);
+        }
+
+        Renderer.material = dudeMaterial;
     }
 }

@@ -322,6 +322,7 @@ MonoBehaviour:
   playerNumber: 0
   Motor: {fileID: 11400000, guid: 4dba988ee97f61442a8e68c1c8d4514f, type: 2}
   State: {fileID: 0}
+  Renderer: {fileID: 0}
 --- !u!114 &114035115708975488
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -374,6 +375,7 @@ MonoBehaviour:
   playerNumber: 0
   Motor: {fileID: 11400000, guid: e205d8a19793b5d4db38a49c835c5793, type: 2}
   State: {fileID: 114779511176583146}
+  Renderer: {fileID: 212001717243797466}
 --- !u!114 &114220479344346984
 MonoBehaviour:
   m_ObjectHideFlags: 1

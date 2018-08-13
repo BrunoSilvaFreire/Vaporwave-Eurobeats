@@ -11,8 +11,7 @@ namespace Data.Scenes.MainMenu.Scripts {
         public PlayerSelector[] PlayerSelectors;
         public string MainScene = "Main";
         public GameObject[] DestroyOnStart;
-        public string[] InputMapsToDisable;
-        public string[] InputMapsToEnable;
+        
 
         private void Start() {
             PlayerSelectors = FindObjectsOfType<PlayerSelector>();
@@ -78,22 +77,7 @@ namespace Data.Scenes.MainMenu.Scripts {
         public void StartGame() {
             DontDestroyOnLoad(gameObject);
             PersistGameData();
-            foreach (var s in InputMapsToDisable) {
-                foreach (var player in ReInput.players.Players) {
-                    foreach (var map in player.controllers.maps.GetAllMapsInCategory(s)) {
-                        map.enabled = false;
-                    }
-                }
-            }
-
-            foreach (var s in InputMapsToEnable) {
-                foreach (var player in ReInput.players.Players) {
-                    foreach (var map in player.controllers.maps.GetAllMapsInCategory(s)) {
-                        map.enabled = false;
-                    }
-                }
-            }
-
+          
             StartCoroutine(InitGame());
         }
 
@@ -107,7 +91,8 @@ namespace Data.Scenes.MainMenu.Scripts {
         }
 
         private void PersistGameData() {
-            GameData.ActivePlayers = (from selector in PlayerSelectors select PlayerDataFrom(selector)).ToArray();
+            GameData.ActivePlayers =
+                (from selector in PlayerSelectors where selector.IsValid() select PlayerDataFrom(selector)).ToArray();
         }
 
         private static PlayerData PlayerDataFrom(PlayerSelector selector) {
