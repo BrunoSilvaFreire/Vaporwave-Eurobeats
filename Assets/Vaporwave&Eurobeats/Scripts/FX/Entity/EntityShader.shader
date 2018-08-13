@@ -81,7 +81,7 @@ Shader "Custom/EntityShader" {
             o.Metallic = _Metallic;
             o.Smoothness = _Glossiness;
             o.Alpha = c.a;
-            fixed3 e = tex2D(_Emission, IN.uv_MainTex);
+            fixed4 e = tex2D(_Emission, IN.uv_MainTex);
             o.Emission = e.rbg * e.a;
         }
         ENDCG
