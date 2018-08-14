@@ -40,7 +40,7 @@ public class ScreenEffects : Singleton<ScreenEffects> {
 
 			_cameraPivot.position += random;
 			_camera.localRotation = Quaternion.Euler(_camera.localEulerAngles.x, _camera.localEulerAngles.y,
-				_camera.localEulerAngles.z + Mathf.Sin(shakeTimer * Mathf.PI * 16) * intensity * 5);
+				Mathf.Sin(shakeTimer * Mathf.PI * 16) * intensity * 5);
 			intensity *= 0.9f;
 			shakeTimer += Time.deltaTime;
 			yield return null;
