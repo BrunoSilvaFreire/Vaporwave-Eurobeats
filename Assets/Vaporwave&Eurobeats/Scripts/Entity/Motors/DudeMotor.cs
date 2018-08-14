@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Rewired.Utils.Classes.Data;
 using Scripts.World;
 using Scripts.World.Selection;
 using Scripts.World.Utilities;
@@ -124,30 +125,24 @@ public class DudeMotor : Motor {
 		dude.SuccCooldown = 0;
 
 		RaycastHit hit;
-		if (Physics.Raycast(dude.transform.position + Vector3.up, (dude.Cursor.position - dude.transform.position).normalized, out hit,
+		if (Physics.SphereCast(dude.transform.position + Vector3.up, 1.5f, (dude.Cursor.position - dude.transform.position).normalized, out hit,
 			(dude.Cursor.position - dude.transform.position).magnitude, ~((1 << 10) & (1 << 11)))) {
-			var selection = Selections.SphereSelection(World.Instance, hit.point.ToVector3Int() + Vector3Int.down,
+			var selection = Selections.SphereSelection(World.Instance, hit.point.ToVector3Int(),
 				dude.SuccArea);
 
 			var tiles = selection.SolidTiles.ToList();
 
 			var cubes = tiles.Count;
 	
-			dude.StartCoroutine(DoSucc(tiles, cubes));
-		
+			for (int i = 0; i < cubes; i++) {
+				_pool.SpawnFromPool("SuccCube", tiles[i].Position + Vector3.one / 2, Quaternion.identity);
+			}
 		
 			dude.CubeStorage += cubes;
 			selection.DeleteAll();
 		}
 		
 		
-	}
-
-	private IEnumerator DoSucc(List<WorldTile> tiles, int count) {
-		for (int i = 0; i < count; i++) {
-			_pool.SpawnFromPool("SuccCube", tiles[i].Position + Vector3.one / 2, Quaternion.identity);
-			yield return null;
-		}
 	}
 
 	private void Granade(DudeMoveState dude) {
@@ -187,9 +182,12 @@ public class DudeMotor : Motor {
 		dude.CubeStorage--;
 		_fx.ScreenShake(0.1f, 0.25f);
 
-		var closest = GetClosestPlayer(dude, dude.Cursor.position);
-
-		var target = closest != Vector3.zero ? closest : dude.Cursor.position;
+		var cursorDir = (dude.Cursor.position - dude.transform.position).normalized;
+		var target = dude.Cursor.position;
+		RaycastHit hit;
+		if (Physics.SphereCast(dude.transform.position, dude.AimAssistRadius, cursorDir, out hit, 100f, 1 << 10)) {
+			target = hit.transform.position;
+		}
 		
 		var dir = ((target - dude.Tr.position + (dude.Cursor.position - dude.Tr.position)).normalized + Random.insideUnitSphere * dude.SpreadAmount).normalized;
 		var projectile = _pool.SpawnFromPool("Projectile", dude.Tr.position + dir, Quaternion.identity);
@@ -199,24 +197,7 @@ public class DudeMotor : Motor {
 		dude.Rb.AddForce(-dir * dude.RecoilForce, ForceMode.Impulse);
 	}
 
-	private Vector3 GetClosestPlayer(DudeMoveState dude,Vector3 center) {
 
-		var closest = Vector3.zero;
-		float minDist = dude.AimAssistRange * dude.AimAssistRange;
-		foreach (var d in dude.Dudes) {
-			if (d.gameObject == dude.gameObject || !d.gameObject.activeInHierarchy)
-				continue;
-		
-			var dist = (Camera.main.WorldToScreenPoint(center) - Camera.main.WorldToScreenPoint(d.transform.position)).sqrMagnitude;
-			if (dist < minDist) {
-				
-				minDist = dist;
-				closest = d.transform.position;
-			}
-		}
-
-		return closest;
-	}
 	
 	private void Jump(DudeMoveState dude) {
 

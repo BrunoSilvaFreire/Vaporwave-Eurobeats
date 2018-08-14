@@ -319,7 +319,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e845ee289d6d8443b554c157c7f1050, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerNumber: 0
+  playerNumber: 1
   Motor: {fileID: 11400000, guid: 4dba988ee97f61442a8e68c1c8d4514f, type: 2}
   State: {fileID: 0}
   Renderer: {fileID: 0}
@@ -372,7 +372,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e845ee289d6d8443b554c157c7f1050, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerNumber: 0
+  playerNumber: 1
   Motor: {fileID: 11400000, guid: e205d8a19793b5d4db38a49c835c5793, type: 2}
   State: {fileID: 114779511176583146}
   Renderer: {fileID: 212001717243797466}
@@ -509,7 +509,7 @@ MonoBehaviour:
   MaximumStorage: 20
   MinimumStorage: 0
   FallMultiplier: 5
-  AimAssistRange: 500
+  AimAssistRadius: 15
   CubeStorage: 0
   GravityScale: 1
   WeaponEffect: {fileID: 11400000, guid: c82106e3fcc97434881e5d7fa1fed477, type: 2}
