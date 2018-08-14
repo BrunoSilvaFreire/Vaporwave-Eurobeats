@@ -5,6 +5,7 @@ using Rewired;
 using Scripts.Game;
 using Scripts.UI;
 using Scripts.World;
+using Scripts.World.Utilities;
 using Shiroi.FX.Effects;
 using Shiroi.FX.Utilities;
 using UnityEngine;
@@ -132,8 +133,8 @@ namespace Data.Scenes.Main {
 
         private void Init(IEnumerable<PlayerData> players, bool reloadPlayer) {
             var newEntities = new List<MovableEntity>();
+            var world = World.Instance;
             foreach (var playerData in players) {
-                var world = World.Instance;
                 var position = GetPos(playerData.Player);
                 var spawnPoint = world.ToSpawnPoint(position);
                 MovableEntity entity;
@@ -152,6 +153,7 @@ namespace Data.Scenes.Main {
                     entity.transform.position = spawnPoint;
                 }
 
+                SetupBase(world, spawnPoint.ToVector3Int());
                 var s = entity.State as DudeMoveState;
                 if (s != null) {
                     s.CubeStorage = s.MaximumStorage;
@@ -163,6 +165,30 @@ namespace Data.Scenes.Main {
             playerEntities.Clear();
             playerEntities.AddRange(newEntities);
         }
+
+        private void SetupBase(World world, Vector3Int dir) {
+            dir.y--;
+            var chunks = new List<Chunk>();
+            for (var x = -1; x < 1; x++) {
+                for (var z = -1; z < 1; z++) {
+                    var s = dir;
+                    s.x += x;
+                    s.z += z;
+                    var c = world.GetChunkAt(s);
+                    s.x %= world.ChunkSize;
+                    s.z %= world.ChunkSize;
+                    c[s] = BlockMaterial.Solid;
+                    if (!chunks.Contains(c)) {
+                        chunks.Add(c);
+                        
+                    }
+                }
+            }
+            foreach (var chunk in chunks) {
+                chunk.LoadMesh(world);
+            }
+        }
+        
 
         private Vector2 GetPos(byte playerDataPlayer) {
             switch (playerDataPlayer) {

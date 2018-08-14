@@ -132,7 +132,8 @@ namespace Scripts.World {
         public Vector3 ToSpawnPoint(Vector2 position) {
             var x = (int) (position.x * ChunkSize * WorldWidth);
             var y = (int) (position.y * ChunkSize * WorldDepth);
-            var height = GetHighestBlockAt(x, y);
+            int height;
+            while ((height = GetHighestBlockAt(x++, y++)) >= ChunkHeight);
             return new Vector3(x + .5F, height, y + .5F);
         }
 
