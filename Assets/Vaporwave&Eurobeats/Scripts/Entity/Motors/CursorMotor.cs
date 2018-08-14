@@ -20,7 +20,7 @@ public class CursorMotor : Motor {
 		var vert = entity.Input.GetAxis("CursorVertical");
 
 		entity.transform.localPosition = entity.transform.localPosition.normalized / 2 +
-			Vector3.Lerp(entity.transform.localPosition, new Vector3(hori, 0, vert).normalized * _range, 0.25f);
+			Vector3.Lerp(entity.transform.localPosition, new Vector3(hori, 0, vert).normalized * _range, 0.5f);
 
 	}
 

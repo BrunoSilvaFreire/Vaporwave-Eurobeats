@@ -5,9 +5,13 @@ using UnityUtilities.Singletons;
 
 public class CameraController : Singleton<CameraController> {
     
-    public float MinZoom, MaxZoom;
+    public float MinZoom, MaxZoom, Zoom, ZoomCap;
+
+    public Vector3 MaxZoomRotation, MinZoomRotation;
+    public Vector3 MaxZoomPosition, MinZoomPosition;
 
     private Coroutine _moveRoutine;
+    private Quaternion _minRotation, _maxRotation;
     private Transform _camera;
     private Transform[] _player, _cursor;
 
@@ -18,6 +22,9 @@ public class CameraController : Singleton<CameraController> {
     }
 
     private void Start() {
+        _maxRotation = Quaternion.Euler(MaxZoomRotation);
+        _minRotation = Quaternion.Euler(MinZoomRotation);
+        
         SearchTargets();
     }
 
@@ -27,7 +34,13 @@ public class CameraController : Singleton<CameraController> {
             return;
         
         transform.position = Vector3.Lerp(transform.position, GetTargetPosition(), 0.1f);
-        _camera.localPosition = Vector3.Lerp(_camera.localPosition, -_camera.forward * GetTargetZoom(), 0.1f);
+
+        Zoom = GetTargetZoom();
+
+        _camera.localPosition =
+            Vector3.Lerp(_camera.localPosition, Vector3.Lerp(MinZoomPosition, MaxZoomPosition, Zoom / MaxZoom), 0.1f);
+        _camera.localRotation = Quaternion.Slerp(_camera.localRotation,
+            Quaternion.Lerp(_minRotation, _maxRotation, Zoom / MaxZoom), 0.1f);
     }
 
 
@@ -81,7 +94,7 @@ public class CameraController : Singleton<CameraController> {
             }
         }
 
-        return Mathf.Lerp(MinZoom, MaxZoom, Mathf.Sqrt(dist) / 20);
+        return Mathf.Lerp(MinZoom, MaxZoom, Mathf.Sqrt(dist) / ZoomCap);
     }
 
     private Vector3 GetTargetPosition() {

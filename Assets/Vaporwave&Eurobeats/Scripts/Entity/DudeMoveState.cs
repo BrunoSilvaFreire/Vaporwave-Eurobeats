@@ -20,7 +20,7 @@ public class DudeMoveState : MoveState {
 	public int MaximumStorage;
 	public int MinimumStorage;
 	public float FallMultiplier = 2.5f;
-	public float AimAssistRange = 10;
+	public float AimAssistRadius = 10;
 	public int CubeStorage = 0;
 	public float GravityScale = 1.0f;
 
