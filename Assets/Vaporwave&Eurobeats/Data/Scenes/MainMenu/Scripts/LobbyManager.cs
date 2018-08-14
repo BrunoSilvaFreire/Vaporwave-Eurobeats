@@ -75,18 +75,8 @@ namespace Data.Scenes.MainMenu.Scripts {
         }
 
         public void StartGame() {
-            DontDestroyOnLoad(gameObject);
-            PersistGameData();
-          
-            StartCoroutine(InitGame());
-        }
-
-        private IEnumerator InitGame() {
-            foreach (var o in DestroyOnStart) {
-                Destroy(o);
-            }
-
-            yield return SceneManager.LoadSceneAsync(MainScene);
+            PersistGameData();          
+            SceneManager.LoadScene(1);
             Destroy(gameObject);
         }
 

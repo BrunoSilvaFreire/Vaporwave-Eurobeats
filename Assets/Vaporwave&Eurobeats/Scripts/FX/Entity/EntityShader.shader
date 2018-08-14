@@ -140,6 +140,7 @@ Cull Off
                 float S = HCV.y / (HCV.z + Epsilon);
                 return float3(HCV.x, S, HCV.z);
             }
+            
         float _HueShift;
         float _EmissionScale;
         void surf (Input IN, inout SurfaceOutputStandard o) {
